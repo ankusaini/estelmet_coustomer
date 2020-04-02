@@ -1,0 +1,142 @@
+<div class="card">
+  <div class="card-header">
+    <h5>Step 4 - Trade Details</h5>
+  </div>
+  <div class="card-divider"></div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-12 col-lg-4 col-xl-3">
+        <div class="form-group">
+          <label>Type <small class="asterik">*</small></label>
+          <select class="form-control">
+            <option>Select</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-12 col-lg-4 col-xl-3">
+        <div class="form-group">
+          <label>Category <small class="asterik">*</small></label>
+          <select class="form-control">
+            <option>Select</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-12 col-lg-4 col-xl-3">
+        <div class="form-group">
+          <label>Shape <small class="asterik">*</small></label>
+          <select class="form-control">
+            <option>Select</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-12 col-lg-4 col-xl-3">
+        <div class="form-group">
+          <label>Class <small class="asterik">*</small></label>
+          <select class="form-control">
+            <option>Select</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-lg-4 col-xl-3">
+        <label for="profile-first-name">Thickness <small class="asterik">*</small></label>
+        <div class="row">
+          <div class="col-12 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <input type="text" class="form-control" id="profile-first-name" placeholder="Min">
+            </div>
+          </div>
+          <div class="col-12 col-lg-6 col-xl-6">
+            <input type="text" class="form-control" id="profile-first-name" placeholder="Max">
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-4 col-xl-3">
+        <label for="profile-first-name">Width <small class="asterik">*</small></label>
+        <div class="row">
+          <div class="col-12 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <input type="text" class="form-control" id="profile-first-name" placeholder="Min">
+            </div>
+          </div>
+          <div class="col-12 col-lg-6 col-xl-6">
+            <input type="text" class="form-control" id="profile-first-name" placeholder="Max">
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-4 col-xl-3">
+        <label for="profile-first-name">Temper <small class="asterik">*</small></label>
+        <div class="row">
+          <div class="col-12 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <input type="text" class="form-control" id="profile-first-name" placeholder="Min">
+            </div>
+          </div>
+          <div class="col-12 col-lg-6 col-xl-6">
+            <input type="text" class="form-control" id="profile-first-name" placeholder="Max">
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-4 col-xl-3">
+        <label for="profile-first-name">Length</label>
+        <div class="row">
+          <div class="col-12 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <input type="text" class="form-control" id="profile-first-name" placeholder="Min">
+            </div>
+          </div>
+          <div class="col-12 col-lg-6 col-xl-6">
+            <input type="text" class="form-control" id="profile-first-name" placeholder="Max">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-lg-4 col-xl-4">
+        <div class="form-group">
+          <label for="profile-first-name">Monthly Product Turnover (MT.) <small class="asterik">*</small></label>
+          <input type="text" class="form-control" id="profile-first-name" placeholder="">
+        </div>
+      </div>
+      <div class="col-12 col-lg-4 col-xl-4">
+        <button class="btn btn-primary mt-4">Add More</button>
+      </div>
+    </div>
+    <div class="row">
+        <div class="card-header">
+            <h5>View Your Listing</h5>
+          </div>
+      <div class="col-12 col-lg-12 col-xl-12">
+        <div class="card-table">
+          <div class="table-responsive-sm">
+            <table>
+              <thead>
+                <tr>
+                  <th>Order</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                  <th>Total</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let order of orders">
+                  <td><a href="">#{{ order.id }}</a></td>
+                  <td>{{ order.date }}</td>
+                  <td>{{ order.status }}</td>
+                  <td>{{ order.total }}</td>
+                  <td><app-icon name="cross-12" size="12" ></app-icon></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group  mb-0">
+        <button class="btn btn-primary mt-5" routerLink="../keyperson">Back</button>&nbsp;
+      <button class="btn btn-primary mt-5" routerLink="../confirm">Next</button>
+    </div>
+  </div>
+</div>

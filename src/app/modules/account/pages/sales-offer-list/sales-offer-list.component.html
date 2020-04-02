@@ -1,0 +1,80 @@
+<app-page-header [header]="'Sales Offer List'" [breadcrumbs]="[
+    {label: 'Home',                        url: '../../'},
+    {label: 'Sales Offer List',  url: ''}
+]"></app-page-header>
+<div class="block">
+  <div class="container">
+
+    <div class="row"  *ngIf="saleOfferList && saleOfferList?.length > 0">
+      <div class="dashboard__orders card">
+        <div class="card-header">
+          <h5>{{ saleOfferList[0].title }} <span class="float-right">20/12/2019</span></h5>
+        </div>
+        <div class="card-divider"></div>
+        <div class="card-table">
+          <div class="table-responsive-sm table-striped">
+            <table>
+              <thead>
+                <tr>
+                  <th style="padding-left: 30px;">
+                    <span class="input-check__body">
+                      <input class="input-check__input" (click)="markAllSelected($event)" [checked] = "markAll" type="checkbox">
+                      <span class="input-check__box"></span>
+                      <app-icon class="input-check__icon" name="check-9x7" size="9x7">
+                      </app-icon>
+                    </span>
+                  </th>
+                  <th>Sr. No.</th>
+                  <th>Type</th>
+                  <th>Category</th>
+                  <th>Shape</th>
+                  <th>Class</th>
+                  <th>Thk. Range</th>
+                  <th>Width Range</th>
+                  <th>Length</th>
+                  <th>Temper</th>
+                  <th>Surface</th>
+                  <th>Gr. Wt.</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of saleOfferList; let i = index;">
+                  <td>
+                    <span class="input-check__body">
+                      <input class="input-check__input" type="checkbox" (click)="addToList($event,item)" [checked]="item.checked">
+                      <span class="input-check__box"></span>
+                      <app-icon class="input-check__icon" name="check-9x7" size="9x7">
+                      </app-icon>
+                    </span>
+                  </td>
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ item?.productType?.productType }}</td>
+                  <td>{{ item?.productCategory?.productCategory }}</td>
+                  <td>{{ item?.productShape?.productShape }}</td>
+                  <td>{{ item?.productClass?.productClass }}</td>
+                  <td>{{ item?.thicknessMin}} - {{ item?.thicknessMax }}</td>
+                  <td>{{ item?.widthMin}} - {{ item?.widthMax }}</td>
+                  <td>Coil</td>
+                  <td>{{ item?.temperMax?.productTemper }}</td>
+                  <td>{{ item?.surfaceFinish }}</td>
+                  <td>{{ item?.gwt }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+    <!-- <div class="products-view__pagination">
+        <app-pagination [current]="1" [siblings]="2" [total]="10" (pageChange)="onPageChange($event)"></app-pagination>
+    </div> -->
+    
+    <div class="row mt-3 ">
+      <div class="col-md-12 pr-0">
+        <button class="btn btn-primary float-right" (click)="putAllSelectedItemIntoCart()">Add to Product Cart</button>
+      </div>
+    </div>
+  </div>
+</div>

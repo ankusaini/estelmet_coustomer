@@ -1,0 +1,36 @@
+<!-- .block-categories -->
+<div class="block block--highlighted block-categories block-categories--layout--{{ layout }}">
+    <div class="container">
+        <app-block-header [header]="header"></app-block-header>
+
+        <div class="block-categories__list">
+            <div *ngFor="let category of categories" class="block-categories__item category-card category-card--layout--{{ layout }}">
+                <div class="category-card__body">
+                    <div class="category-card__image">
+                        <a [routerLink]="['/classic/account/salesList']" [queryParams]="{id: category.id}"><img src="../../../../assets/images/products/product-7.jpg" alt=""></a>
+                    </div>
+                    <div class="category-card__content">
+                        <div class="category-card__name">
+                            <a [routerLink]="['/classic/account/salesList']" [queryParams]="{id: category.id}">{{ category.title }}</a>
+                        </div>
+                        <ul class="category-card__links">
+                            <li *ngIf="category?.thicknessRange">{{ category.thicknessRange }}</li>
+                            <li *ngIf="category?.widthRange">{{ category.widthRange }}</li>
+                            <li *ngIf="category?.grossWt">{{ category.grossWt }}</li>
+                            <li *ngIf="category?.location"> Location : {{ category?.location }}</li>
+
+                              
+                        </ul>
+                        <div class="category-card__all"> 
+                            <a [routerLink]="['/classic/account/salesList']" [queryParams]="{id: category.id}">Show All</a>
+                        </div>
+                        <div class="category-card__products">
+                            {{ category.products }} Products
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- .block-categories / end -->

@@ -1,0 +1,195 @@
+<app-page-header [header]="'Purchase Offer'" [breadcrumbs]="[
+    {label: 'Home',                        url: '../../'},
+    {label: 'Purchase Offer',  url: ''}
+]"></app-page-header>
+
+<div class="block faq">
+    <div class="container">
+        <div class="faq__section">
+          
+            <div class="faq__section-body">
+                <div
+                *ngIf="purchaseList && purchaseList.length > 0"
+                class="row"
+            >
+                <div
+                    *ngFor="let item of purchaseList"
+                    class="faq__section-column col-12 col-lg-6"
+                >
+                    <div
+                        class="typography"
+                        style="border: 1px dashed #ccc;padding: 10px 20px;"
+                    >
+                        <h6>
+                            {{ item?.title }}
+                            <span
+                                class="float-right product-card__badge product-card__badge--sale"
+                                >Sale</span
+                            >
+                        </h6>
+                        <div class="line"></div>
+                        <div class="row">
+                            <div class="col-md-6 col-xs-12">
+                                <div class="offerList">
+                                    <ul>
+                                        <li>
+                                            Type :
+                                            <span>{{ item?.type }}</span>
+                                        </li>
+                                        <li>
+                                            Shape :
+                                            <span>{{
+                                                item?.productShape
+                                            }}</span>
+                                        </li>
+                                        <li>
+                                            Thk. Range :
+                                            <span
+                                                >{{
+                                                    item?.thicknessRange
+                                                }}
+                                                mm</span
+                                            >
+                                        </li>
+                                        <li>
+                                            Width Range :
+                                            <span>{{
+                                                item?.widthRange
+                                            }}</span>
+                                        </li>
+                                        <li>Surface : <span>Matt</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xs-12">
+                                <div class="offerList">
+                                    <ul>
+                                        <li>
+                                            Category :
+                                            <span>{{
+                                                item?.productCategory
+                                            }}</span>
+                                        </li>
+                                        <li>Class : <span>2B</span></li>
+                                        <li>
+                                            Length Range :
+                                            <span>822 - 923 mm</span>
+                                        </li>
+                                        <li>
+                                            Temper : <span>T4 - T5</span>
+                                        </li>
+                                        <li>
+                                            Gr. Wt. : <span>160.7 Mt.</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="ReadClick">
+                            <a [routerLink]="['../purchaseList']" [queryParams]="{id: item?.id}">Read More..</a>
+                        </p>
+                    </div>
+                </div>
+                <!-- <div class="faq__section-column col-12 col-lg-6">
+                        <div class="typography" style="border: 1px dashed #ccc;padding: 10px 20px;">
+                                <h6>SO-#197 <span class="float-right product-card__badge product-card__badge--sale">Sale</span></h6>
+                                  <div class="line"></div>
+                                  <div class="row">
+                                      <div class="col-md-6 col-xs-12">
+                                          <div class="offerList">
+                                              <ul>
+                                                  <li>Type : <span>Cold Rolled</span></li>
+                                                  <li>Shape : <span>2B</span></li>
+                                                  <li>Thk. Range : <span>0.22 - 1.23 mm</span></li>
+                                                  <li>Width Range : <span>900 - 1000</span></li>
+                                                  <li>Surface : <span>Matt</span></li>
+                                              </ul>
+                                          </div>
+                                      </div>
+                                      <div class="col-md-6 col-xs-12">
+                                          <div class="offerList">
+                                              <ul>
+                                                  <li>Category : <span>Cold Rolled</span></li>
+                                                  <li>Class : <span>2B</span></li>
+                                                  <li>Length Range : <span>822 - 923 mm</span></li>
+                                                  <li>Temper : <span>T4 - T5</span></li>
+                                                  <li>Gr. Wt. : <span>160.7 Mt.</span></li>
+                                              </ul>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <p class="ReadClick"><a routerLink="../salesList">Read More..</a></p>
+                              </div>
+                </div> -->
+            </div>
+                <!--  -->
+   
+                <!-- <div class="row pt-3">
+                  <div class="faq__section-column col-12 col-lg-6">
+                        <div class="typography" style="border: 1px dashed #ccc;padding: 10px 20px;">
+                                <h6>PO-#197 <span class="float-right">20/10/2019</span></h6>
+                                  <div class="line"></div>
+                                  <div class="row">
+                                      <div class="col-md-6 col-xs-12">
+                                          <div class="offerList">
+                                              <ul>
+                                                  <li>Type : <span>Cold Rolled</span></li>
+                                                  <li>Shape : <span>2B</span></li>
+                                                  <li>Thk. Range : <span>0.22 - 1.23 mm</span></li>
+                                                  <li>Width Range : <span>900 - 1000</span></li>
+                                                  <li>Surface : <span>Matt</span></li>
+                                              </ul>
+                                          </div>
+                                      </div>
+                                      <div class="col-md-6 col-xs-12">
+                                          <div class="offerList">
+                                              <ul>
+                                                  <li>Category : <span>Cold Rolled</span></li>
+                                                  <li>Class : <span>2B</span></li>
+                                                  <li>Length Range : <span>822 - 923 mm</span></li>
+                                                  <li>Temper : <span>T4 - T5</span></li>
+                                                  <li>Gr. Wt. : <span>160.7 Mt.</span></li>
+                                              </ul>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <p class="ReadClick"><a routerLink="../purchaseList">Read More..</a></p>
+                              </div>
+                  </div>
+                  <div class="faq__section-column col-12 col-lg-6">
+                        <div class="typography" style="border: 1px dashed #ccc;padding: 10px 20px;">
+                                <h6>PO-#197 <span class="float-right">20/10/2019</span></h6>
+                                  <div class="line"></div>
+                                  <div class="row">
+                                      <div class="col-md-6 col-xs-12">
+                                          <div class="offerList">
+                                              <ul>
+                                                  <li>Type : <span>Cold Rolled</span></li>
+                                                  <li>Shape : <span>2B</span></li>
+                                                  <li>Thk. Range : <span>0.22 - 1.23 mm</span></li>
+                                                  <li>Width Range : <span>900 - 1000</span></li>
+                                                  <li>Surface : <span>Matt</span></li>
+                                              </ul>
+                                          </div>
+                                      </div>
+                                      <div class="col-md-6 col-xs-12">
+                                          <div class="offerList">
+                                              <ul>
+                                                  <li>Category : <span>Cold Rolled</span></li>
+                                                  <li>Class : <span>2B</span></li>
+                                                  <li>Length Range : <span>822 - 923 mm</span></li>
+                                                  <li>Temper : <span>T4 - T5</span></li>
+                                                  <li>Gr. Wt. : <span>160.7 Mt.</span></li>
+                                              </ul>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <p class="ReadClick"><a routerLink="../purchaseList">Read More..</a></p>
+                              </div>
+                  </div>
+              </div> -->
+            </div>
+        </div>
+
+    </div>
+</div>

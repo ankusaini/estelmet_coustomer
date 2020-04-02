@@ -1,0 +1,11 @@
+<div class="site-footer__widget footer-contacts">
+    <h5 class="footer-contacts__title">Contact Us</h5>
+
+
+    <ul class="footer-contacts__contacts">
+        <li><i class="footer-contacts__icon fas fa-globe-americas"></i> {{ store.address }}</li>
+        <li> {{ store.address2 }}</li>
+        <li><i class="footer-contacts__icon far fa-envelope"></i> {{ store.email }}</li>
+        <li><i class="footer-contacts__icon fas fa-mobile-alt"></i> {{ store.phone.join(', ') }}</li>
+    </ul>
+</div>

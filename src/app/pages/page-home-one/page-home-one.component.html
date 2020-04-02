@@ -1,0 +1,79 @@
+<app-block-slideshow [withDepartments]="true"></app-block-slideshow>
+
+<app-block-features></app-block-features>
+
+<!-- <app-block-products-carousel header="Latest Inventory" layout="grid-4" [loading]="featuredProducts.loading" [products]="generalOffersList" [groups]="featuredProducts.groups" (groupChange)="featuredProducts.groupChange($event)"></app-block-products-carousel> -->
+<app-block-products-carousel *ngIf="generalOffersList && generalOffersList?.length > 0" header="Latest Inventory" [layout]="'grid-4'" [loading]="featuredProducts.loading" [products]="generalOffersList" ></app-block-products-carousel>
+
+<app-block-banner></app-block-banner>
+<app-block-quote header="Request For Quotation" layout="classic" [products]="hotOffersList"></app-block-quote>
+<app-block-products *ngIf="hotOffersList && hotOffersList.length > 0" header="Hot Offers" [layout]="'large-first'" [products]="hotOffersList"></app-block-products>
+
+<app-block-categories header="Latest Offers" layout="classic" [categories]="latestOffersList"></app-block-categories>
+
+<div class="container">
+    <h3 class="block-header__title" style="margin: 0px 0px 29px;">
+        Our Services
+    </h3>
+    <div class="row">
+        <div class="col-12 col-md-4 col-lg-4">
+            <div class="ourServ" style="margin-bottom: 100px;box-shadow: 0 1px 16px rgba(0, 0, 0, 0.17);">
+                <div class="post-card__image">
+                    <img src="../../../assets/images/serve1.jpg" />
+                </div>
+                <div class="post-card__info" style="padding: 15px 20px">
+                    <div class="post-card__name">
+                        <a appClick style="font-size: 18px;">Logistics Service</a>
+                    </div>
+
+                    <div class="post-card__content">
+                        Material at your doorstep, get the savings of ocean freight - without the headaches.
+                    </div>
+                    <div class="post-card__read-more" style="margin:  10px 0px;">
+                        <button type="button" class="btn btn-primary btn-sm">Read More</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-4 col-lg-4">
+                <div class="ourServ" style="margin-bottom: 100px;box-shadow: 0 1px 16px rgba(0, 0, 0, 0.17);">
+            <div class="post-card__image">
+                <img src="../../../assets/images/serve2.jpg" />
+            </div>
+            <div class="post-card__info" style="padding: 15px 20px">
+                <div class="post-card__name">
+                    <a appClick style="font-size: 18px;">Buy Now, Pay Later</a>
+                    </div>
+
+                    <div class="post-card__content">
+                        Buy now, pay later facility that helps your business to increase your trading of steels.
+                    </div>
+                    <div class="post-card__read-more" style="margin:  10px 0px;">
+                        <button type="button" class="btn btn-primary btn-sm">Read More</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-4 col-lg-4">
+            <div class="ourServ" style="margin-bottom: 100px;box-shadow: 0 1px 16px rgba(0, 0, 0, 0.17);">
+                <div class="post-card__image">
+                    <img src="../../../assets/images/serve3.jpg" />
+                </div>
+                <div class="post-card__info" style="padding: 15px 20px">
+                    <div class="post-card__name">
+                        <a appClick style="font-size: 18px;">Customize Your Requirements</a>
+                    </div>
+
+                    <div class="post-card__content">
+                        Material at your doorstep, get the savings of ocean freight - without the headaches.
+                    </div>
+                    <div class="post-card__read-more" style="margin:  10px 0px;">
+                        <button type="button" class="btn btn-primary btn-sm">Read More</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-block-posts header="Latest News" layout="list-sm" [posts]="posts"></app-block-posts>

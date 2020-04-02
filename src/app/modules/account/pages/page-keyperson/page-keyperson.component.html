@@ -1,0 +1,67 @@
+<div class="card">
+  <div class="card-header">
+    <h5>Step 3 - Key Person Details</h5>
+  </div>
+  <div class="card-divider"></div>
+  <div [formGroup]="keyPerson" class="card-body">
+    <div class="row">
+      <div class="col-12 col-lg-7 col-xl-7">
+        <div class="form-group">
+          <label for="profile-first-name">Name <small class="asterik">*</small></label>
+          <input formControlName="name" type="text" class="form-control" id="profile-first-name" placeholder="Name">
+        </div>
+        <div class="form-group">
+          <label for="profile-first-name">Designation <small class="asterik">*</small></label>
+          <input formControlName="designation" type="text" class="form-control" id="profile-first-name" placeholder="Designation">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-4 col-lg-2 col-xl-2">
+        <div class="form-group">
+          <label for="profile-first-name">Code</label>
+          <input type="text" class="form-control" id="profile-first-name" placeholder="">
+        </div>
+      </div>
+      <div class="col-8 col-lg-5 col-xl-5">
+        <div class="form-group">
+          <label for="profile-first-name">Phone 1 <small class="asterik">*</small></label>
+          <input formControlName="phone1" type="text" class="form-control" id="profile-first-name" placeholder="Phone 1">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4 col-lg-2 col-xl-2">
+        <div class="form-group">
+          <label for="profile-first-name">Code</label>
+          <input type="text" class="form-control" id="profile-first-name" placeholder="">
+        </div>
+      </div>
+      <div class="col-8 col-lg-5 col-xl-5">
+        <div class="form-group">
+          <label for="profile-first-name">Phone 2</label>
+          <input formControlName="phone2" type="text" class="form-control" id="profile-first-name" placeholder="Phone 2">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-lg-7 col-xl-7">
+          <div class="form-group">
+            <label for="profile-first-name">Email 1 <small class="asterik">*</small></label>
+            <input  formControlName="email1" type="text" class="form-control" id="profile-first-name" placeholder="Email 1">
+          </div>
+        </div>
+        <div class="col-12 col-lg-7 col-xl-7">
+            <div class="form-group">
+              <label for="profile-first-name">Email 2</label>
+              <input formControlName="email2" type="text" class="form-control" id="profile-first-name" placeholder="Email 2">
+            </div>
+          </div>
+      </div>
+    <div class="form-group  mb-0">
+      <button class="btn btn-primary" routerLink="../business">Back</button>&nbsp;
+      <button class="btn btn-primary" routerLink="../trade">Next</button>
+    </div>
+  </div>
+</div>

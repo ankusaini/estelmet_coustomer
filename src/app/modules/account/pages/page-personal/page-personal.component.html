@@ -1,0 +1,84 @@
+<div class="card">
+    <div class="card-header">
+      <h5>Step 1 - Personal Details</h5>
+    </div>
+    <div class="card-divider"></div>
+    <div class="card-body">
+        <form [formGroup]="basicDetails"  #purchaseMr="ngForm" autocomplete="off">
+      <div class="row">
+          <div class="col-12 col-lg-8 col-xl-8">
+              <div class="form-group">
+                <label for="profile-first-name">Registered As <small class="asterik">*</small></label>
+                <div class="form-group">
+                    <select formControlName="userType" class="form-control">
+                      <option value="Customer">Customer</option>
+                      <option value="Supplier">Supplier</option>
+                    </select>
+                  </div>
+              </div>
+            </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-lg-4 col-xl-4">
+          <div class="form-group">
+            <label for="profile-first-name">First Name <small class="asterik">*</small></label>
+            <input type="text" class="form-control" id="profile-first-name" placeholder="First Name" formControlName="fName">
+            <p *ngIf="f.fName.errors && f.fName.touched" style="color:red">First name id required.</p>
+          </div>
+        </div>
+        <div class="col-12 col-lg-4 col-xl-4">
+          <div class="form-group">
+            <label for="profile-first-name">Last Name <small class="asterik">*</small></label>
+            <input type="text" class="form-control" id="profile-first-name" placeholder="Last Name"  formControlName="lName">
+            <p *ngIf="f.lName.errors && f.lName.touched" style="color:red">Last name id required.</p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-lg-4 col-xl-4">
+          <div class="form-group">
+            <label for="profile-first-name">Mobile <small class="asterik">*</small></label>
+            <input type="number" maxLength="10" class="form-control" id="profile-first-name" placeholder="Mobile" formControlName="mobile">
+            <p *ngIf="f.mobile.errors && f.mobile.touched" style="color:red">Mobile number must be of 10 digits.</p>
+          </div>
+        </div>
+        <div class="col-12 col-lg-4 col-xl-4">
+          <div class="form-group">
+            <label for="profile-first-name">E-mail <small class="asterik">*</small></label>
+            <input type="text" class="form-control" id="profile-first-name" placeholder="E-mail" formControlName="email">
+            <p *ngIf="f.email.errors && f.email.touched" style="color:red">Email is required.</p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-lg-4 col-xl-4">
+          <div class="form-group">
+            <label for="profile-first-name">Password <small class="asterik">*</small></label>
+            <input type="text" class="form-control" id="profile-first-name" placeholder="Password" formControlName="password">
+            <!-- <p *ngIf="f.password.errors && f.password.touched" style="color:red">{{emailUser}}</p> -->
+          </div>
+        </div>
+        <div class="col-12 col-lg-4 col-xl-4">
+          <div class="form-group">
+            <label for="profile-first-name">Confirm Password <small class="asterik">*</small></label>
+            <input type="text" class="form-control" id="profile-first-name" placeholder="Confirm Password" formControlName="confirm_password">
+            <!-- <p *ngIf="f.confirm_password.errors && f.confirm_password.touched" style="color:red">{{emailUser}}</p> -->
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-lg-4 col-xl-8">
+          <div class="form-group">
+            <label for="profile-first-name">Upload Photo</label>
+            <input type="file" class="form-control">
+          </div>
+        </div>
+        <div class="col-12 col-lg-4 col-xl-4">
+        </div>
+      </div>
+      <div class="form-group  mb-0">
+          <button class="btn btn-primary" routerLink="../business" [disabled]="!purchaseMr.form.valid">Next</button>
+      </div>
+      </form>
+    </div>
+  </div>

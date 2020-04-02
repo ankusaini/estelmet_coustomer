@@ -1,0 +1,8 @@
+.card-table th {
+      
+    text-transform: capitalize;
+    color: #333;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 10px 12px;
+}

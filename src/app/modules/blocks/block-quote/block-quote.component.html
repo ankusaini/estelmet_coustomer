@@ -1,0 +1,136 @@
+<div class="container">
+  <div class="site-footer__widgets">
+    <div class="row">
+      <div class="col-12 col-md-6 col-lg-6">
+        <app-block-products-carousel header="New Arrivals" layout="horizontal" [rows]="3"
+         [products]="products"
+        ></app-block-products-carousel>
+      </div>
+      <div [formGroup]="quoteForm" class="col-12 col-md-6 col-lg-6">
+        <h3 class="block-header__title" style="margin: 0px 0px 29px;">Request For Quotation</h3>
+        <div class="request_quote">
+          <div class="row">
+            <div class="col-6 col-lg-6">
+              <div class="form-group">
+                <label>Type <small class="asterik">*</small></label>
+                <select formControlName="productType" class="form-control" [ngClass]="{'error': f.productType.errors && isSubmit }">
+                  <option value="">Select</option>
+                  <option [value]="type.id" *ngFor="let type of productTypeList" >{{type.productType}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-6 col-lg-6">
+              <div class="form-group">
+                <label>Category <small class="asterik">*</small></label>
+                <select formControlName="productCategory" class="form-control" [ngClass]="{'error': f.productCategory.errors && isSubmit }">                    
+                    <option value="">Select</option>
+                    <option [value]="category.id" *ngFor="let category of productCategoryList" >{{category.productCategory}}</option>
+                  </select>
+              </div>
+            </div>
+          </div>
+          <!--  -->
+          <div class="row">
+            <div class="col-6 col-lg-6">
+              <div class="form-group">
+                <label>Shape <small class="asterik">*</small></label>
+                <select formControlName="productShape"  class="form-control" [ngClass]="{'error': f.productShape.errors && isSubmit }">                    
+                    <option value="">Select</option>
+                    <option [value]="shape.id" *ngFor="let shape of productShapeList" >{{shape.productShape}}</option>
+                  </select>
+              </div>
+            </div>
+            <div class="col-6 col-lg-6">
+              <div class="form-group">
+                <label>Class <small class="asterik">*</small></label>
+                <select formControlName="productClass" class="form-control" [ngClass]="{'error': f.productClass.errors && isSubmit }">                    
+                    <option value="">Select</option>
+                    <option [value]="class.id" *ngFor="let class of productClassList" >{{class.productClass }}</option>
+                  </select>
+              </div>
+            </div>
+          </div>
+          <!--  -->
+          <div class="row">
+            <div class="col-6 col-lg-6">
+              <div class="row">
+                <div class="col-6 col-lg-6">
+                  <div class="form-group">
+                    <label for="profile-first-name">Thick. Min <small class="asterik">*</small></label>
+                    <input type="number" formControlName="thicknessMin" class="form-control" [ngClass]="{'error': f.thicknessMin.errors && isSubmit }" placeholder="MM">
+                  </div>
+                </div>
+                <div class="col-6 col-lg-6">
+                  <div class="form-group">
+                    <label for="profile-first-name">Thick. Max</label>
+                    <input type="number" formControlName="thicknessMax" [ngClass]="{'error': f.thicknessMax.errors && isSubmit }" class="form-control" placeholder="MM">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 col-lg-6">
+              <div class="row">
+                <div class="col-6 col-lg-6">
+                  <div class="form-group">
+                    <label for="profile-first-name">Width Min <small class="asterik">*</small></label>
+                    <input type="number" formControlName="widthMin" [ngClass]="{'error': f.widthMin.errors && isSubmit }" class="form-control" placeholder="MM">
+                  </div>
+                </div>
+                <div class="col-6 col-lg-6">
+                  <div class="form-group">
+                    <label for="profile-first-name">Width Max</label>
+                    <input type="number" formControlName="widthMax" [ngClass]="{'error': f.widthMax.errors && isSubmit }" class="form-control" placeholder="MM">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--  -->
+          <div class="row">
+            <div class="col-6 col-lg-6">
+              <div class="row">
+                <div class="col-6 col-lg-6">
+                  <div class="form-group">
+                    <label for="profile-first-name">Length Min <small class="asterik">*</small></label>
+                    <input type="number" formControlName="lengthMin"  [ngClass]="{'error': f.lengthMin.errors && isSubmit }" class="form-control" placeholder="MM">
+                  </div>
+                </div>
+                <div class="col-6 col-lg-6">
+                  <div class="form-group">
+                    <label for="profile-first-name">Length Max</label>
+                    <input type="number" formControlName="lengthMax" [ngClass]="{'error': f.lengthMax.errors && isSubmit }" class="form-control" placeholder="MM">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 col-lg-6">
+              <div class="row">
+                <div class="col-6 col-lg-6">
+                  <div class="form-group">
+                    <label>Temper Min</label>
+                    <select formControlName="temperMin" class="form-control" [ngClass]="{'error': f.temperMin.errors && isSubmit }">                    
+                        <option value="">Select <small class="asterik">*</small></option>
+                        <option [value]="temper.id" *ngFor="let temper of productTemperList" >{{temper.productTemper}}</option>
+                      </select>
+                  </div>
+                </div>
+                <div class="col-6 col-lg-6">
+                  <div class="form-group">
+                    <label>Temper Max</label>
+                    <select formControlName="temperMax" class="form-control" [ngClass]="{'error': f.temperMax.errors && isSubmit }">                    
+                        <option value="">Select</option>
+                        <option [value]="temper.id" *ngFor="let temper of productTemperList" >{{temper.productTemper}}</option>
+                      </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--  -->
+          <button type="submit" class="btn btn-primary btn-lg btn-block" (click)="addToCart()">Request For Quotation</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

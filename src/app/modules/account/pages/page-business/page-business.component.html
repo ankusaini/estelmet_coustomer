@@ -1,0 +1,99 @@
+<div class="card">
+  <div class="card-header">
+    <h5>Step 2 - Business Details</h5>
+  </div>
+  <div class="card-divider"></div>
+  <div [formGroup]="buisnessDetails" class="card-body">
+    <div class="row">
+      <div class="col-12 col-lg-7 col-xl-7">
+        <div class="form-group">
+          <label for="profile-first-name">Company Name <small class="asterik">*</small></label>
+          <input formControlName="c_name" type="text" class="form-control" id="profile-first-name" placeholder="Company Name">
+        </div>
+        <div class="form-group">
+          <label for="profile-first-name">Address Line 1 <small class="asterik">*</small></label>
+          <input formControlName="address1" type="text" class="form-control" id="profile-first-name" placeholder="Address Line 1">
+        </div>
+        <div class="form-group">
+          <label for="profile-first-name">Address Line 2</label>
+          <input formControlName="address2" type="text" class="form-control" id="profile-first-name" placeholder="Address Line 2">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+          <label>Country <small class="asterik">*</small></label>
+          <!-- <select class="form-control">
+            <option>Select</option>
+          </select> -->
+          <input formControlName="country" type="text" class="form-control" id="profile-first-name" placeholder="Address Line 2">
+        </div>
+      </div>
+      <div class="col-12 col-lg-1 col-xl-1"></div>
+      <div class="col-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+          <label>State <small class="asterik">*</small></label>
+          <!-- <select class="form-control">
+            <option>Select</option>
+          </select> -->
+          <input formControlName="state" type="text" class="form-control" id="profile-first-name" placeholder="Address Line 2">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+          <label>City <small class="asterik">*</small></label>
+          <!-- <select class="form-control">
+            <option>Select</option>
+          </select> -->
+          <input formControlName="city" type="text" class="form-control" id="profile-first-name" placeholder="Address Line 2">
+        </div>
+      </div>
+      <div class="col-12 col-lg-1 col-xl-1"></div>
+      <div class="col-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+          <label for="profile-first-name">Pin Code <small class="asterik">*</small></label>
+          <input formControlName="pincode" type="text" class="form-control" id="profile-first-name" placeholder="Pin Code">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-lg-7 col-xl-7">
+        <div class="form-group">
+          <label for="profile-first-name">Company GST <small class="asterik">*</small></label>
+          <input formControlName="gst" type="text" class="form-control" id="profile-first-name" placeholder="Company GST">
+        </div>
+      </div>
+      <div class="col-12 col-lg-7 col-xl-7">
+        <div class="form-group">
+          <label for="profile-first-name">Business Email</label>
+          <input formControlName="b_email" type="text" class="form-control" id="profile-first-name" placeholder="Business Email">
+        </div>
+      </div>
+      <div class="col-12 col-lg-7 col-xl-7">
+        <div class="form-group">
+          <label for="profile-first-name">Mobile</label>
+          <input formControlName="mobile" type="text" class="form-control" id="profile-first-name" placeholder="Mobile">
+        </div>
+      </div>
+      <div class="col-12 col-lg-7 col-xl-7">
+        <div class="form-group">
+          <label for="profile-first-name">Landline</label>
+          <input formControlName="landline" type="text" class="form-control" id="profile-first-name" placeholder="Landline">
+        </div>
+      </div>
+      <div class="col-12 col-lg-7 col-xl-7">
+          <div class="form-group">
+            <label for="profile-first-name">No. of Employees</label>
+            <input formControlName="employee_count" type="text" class="form-control" id="profile-first-name" placeholder="No. of Employees">
+          </div>
+        </div>
+    </div>
+    <div class="form-group  mb-0">
+      <button class="btn btn-primary" routerLink="../personal">Back</button>&nbsp;
+      <button class="btn btn-primary" routerLink="../keyperson">Next</button>
+    </div>
+  </div>
+</div>

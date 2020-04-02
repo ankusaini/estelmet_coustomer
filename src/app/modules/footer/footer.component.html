@@ -1,0 +1,39 @@
+<div class="site-footer">
+    <div class="container">
+        <div class="site-footer__widgets">
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-4">
+                    <app-footer-contacts></app-footer-contacts>
+                </div>
+                <div class="col-6 col-md-3 col-lg-2">
+                    <app-footer-links header="Information" [links]="[
+                        {label: 'About Us',             url: './site/about-us'},
+                        {label: 'Terms And Conditions',       url: './site/terms'},
+                        {label: 'Contact Us',           url: './site/contact-us'},
+                        {label: 'FAQ',             url: './site/faq'}
+                    ]"></app-footer-links>
+                </div>
+                <div class="col-6 col-md-3 col-lg-2">
+                    <app-footer-links header="My Account" [links]="[
+                        {label: 'Store Location', url: './site/store'},
+                        {label: '24/7 Support',  url: './site/support'},
+                        {label: 'WishList',  url: './shop/wishlist'},
+                        {label: 'Career',     url: './site/career'}
+                    ]"></app-footer-links>
+                </div>
+                <div class="col-12 col-md-12 col-lg-4">
+                    <app-footer-newsletter class="site-footer__widget"></app-footer-newsletter>
+                </div>
+            </div>
+        </div>
+
+        <div class="site-footer__bottom">
+            <div class="site-footer__copyright">
+                Powered by <a href="http://www.gpglobal.com/" target="_blank">GP Global Kimitsu Pvt. Ltd.</a> — Design by <a href="http://www.abainfotech.com/" target="_blank">ABA Info Tech Pvt. Ltd.</a>
+            </div>
+            <div class="site-footer__payments">
+                <img src="assets/images/payments.png" alt="">
+            </div>
+        </div>
+    </div>
+</div>
