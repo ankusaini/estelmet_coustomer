@@ -3,16 +3,24 @@
     <h5>Step 3 - Key Person Details</h5>
   </div>
   <div class="card-divider"></div>
-  <div [formGroup]="keyPerson" class="card-body">
+  <form [formGroup]="registerService.keyPerson" class="card-body" (ngSubmit)="submitKeyPerson()">
     <div class="row">
       <div class="col-12 col-lg-7 col-xl-7">
         <div class="form-group">
           <label for="profile-first-name">Name <small class="asterik">*</small></label>
-          <input formControlName="name" type="text" class="form-control" id="profile-first-name" placeholder="Name">
+          <input formControlName="fullName1" type="text" class="form-control" id="profile-first-name" placeholder="Name">
+          <small *ngIf="f.fullName1.value === '' && (f.fullName1.dirty || f.fullName1.touched )" id="passwordHelpBlock" class="form-text text-muted"
+        >This field is required.</small>
+            <small *ngIf="f.fullName1.value !== '' && f.fullName1.errors?.minlength  " id="passwordHelpBlock" class="form-text text-muted"
+        >Name should be more than 2 characters.</small>
         </div>
         <div class="form-group">
           <label for="profile-first-name">Designation <small class="asterik">*</small></label>
-          <input formControlName="designation" type="text" class="form-control" id="profile-first-name" placeholder="Designation">
+          <input formControlName="designation1" type="text" class="form-control" id="profile-first-name" placeholder="Designation">
+          <small *ngIf="f.designation1.value === '' && (f.designation1.dirty || f.designation1.touched )" id="passwordHelpBlock" class="form-text text-muted"
+        >This field is required.</small>
+            <!-- <small *ngIf="f.designation1.value !== '' && f.designation1.errors?.minlength  " id="passwordHelpBlock" class="form-text text-muted"
+        >Designation should be more than 2 characters.</small> -->
         </div>
       </div>
     </div>
@@ -27,7 +35,11 @@
       <div class="col-8 col-lg-5 col-xl-5">
         <div class="form-group">
           <label for="profile-first-name">Phone 1 <small class="asterik">*</small></label>
-          <input formControlName="phone1" type="text" class="form-control" id="profile-first-name" placeholder="Phone 1">
+          <input formControlName="mobile1" type="text" class="form-control" id="profile-first-name" placeholder="Phone 1">
+          <small *ngIf="f.mobile1.value === '' && (f.mobile1.dirty || f.mobile1.touched )" id="passwordHelpBlock" class="form-text text-muted"
+            >This field is required.</small>
+              <small *ngIf="f.mobile1.value !== '' &&  f.mobile1.errors?.contactNumberValidation" id="passwordHelpBlock" class="form-text text-muted"
+            >This field only accepts 10 or 13 digits.</small>
         </div>
       </div>
     </div>
@@ -41,7 +53,11 @@
       <div class="col-8 col-lg-5 col-xl-5">
         <div class="form-group">
           <label for="profile-first-name">Phone 2</label>
-          <input formControlName="phone2" type="text" class="form-control" id="profile-first-name" placeholder="Phone 2">
+          <input formControlName="mobile2" type="text" class="form-control" id="profile-first-name" placeholder="Phone 2">
+          <!-- <small *ngIf="f.mobile2.value === '' && (f.mobile2.dirty || f.mobile2.touched )" id="passwordHelpBlock" class="form-text text-muted"
+            >This field is required.</small> -->
+              <small *ngIf="f.mobile2.value !== '' &&  f.mobile2.errors?.contactNumberValidation" id="passwordHelpBlock" class="form-text text-muted"
+            >This field only accepts 10 or 13 digits.</small>
         </div>
       </div>
     </div>
@@ -49,19 +65,21 @@
         <div class="col-12 col-lg-7 col-xl-7">
           <div class="form-group">
             <label for="profile-first-name">Email 1 <small class="asterik">*</small></label>
-            <input  formControlName="email1" type="text" class="form-control" id="profile-first-name" placeholder="Email 1">
+            <input  formControlName="email1" type="email" class="form-control" id="profile-first-name" placeholder="Email 1">
+            <small *ngIf="f.email1.value === '' && (f.email1.dirty || f.email1.touched )" id="passwordHelpBlock" class="form-text text-muted"
+        >This field is required.</small>
           </div>
         </div>
         <div class="col-12 col-lg-7 col-xl-7">
             <div class="form-group">
               <label for="profile-first-name">Email 2</label>
-              <input formControlName="email2" type="text" class="form-control" id="profile-first-name" placeholder="Email 2">
+              <input formControlName="email2" type="email" class="form-control" id="profile-first-name" placeholder="Email 2">
             </div>
           </div>
       </div>
     <div class="form-group  mb-0">
       <button class="btn btn-primary" routerLink="../business">Back</button>&nbsp;
-      <button class="btn btn-primary" routerLink="../trade">Next</button>
+      <button class="btn btn-primary" type="submit" [disabled]="!registerService.keyPerson.valid" >Next</button>
     </div>
-  </div>
+  </form>
 </div>

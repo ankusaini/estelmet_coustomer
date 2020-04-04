@@ -3,16 +3,24 @@
     <h5>Step 2 - Business Details</h5>
   </div>
   <div class="card-divider"></div>
-  <div [formGroup]="buisnessDetails" class="card-body">
+  <form [formGroup]="registerService.buisnessDetails" (ngSubmit)="submitBusinesDetails()" class="card-body">
     <div class="row">
       <div class="col-12 col-lg-7 col-xl-7">
         <div class="form-group">
           <label for="profile-first-name">Company Name <small class="asterik">*</small></label>
-          <input formControlName="c_name" type="text" class="form-control" id="profile-first-name" placeholder="Company Name">
+          <input formControlName="companyName" type="text" class="form-control" id="profile-first-name" placeholder="Company Name">
+          <small *ngIf="f.companyName.value === '' && (f.companyName.dirty || f.companyName.touched )" id="passwordHelpBlock" class="form-text text-muted"
+        >This field is required.</small>
+        <small *ngIf="f.companyName.value !== '' && f.companyName.errors?.minlength  " id="passwordHelpBlock" class="form-text text-muted"
+        >Company Name should be more than 2 characters.</small>
         </div>
         <div class="form-group">
           <label for="profile-first-name">Address Line 1 <small class="asterik">*</small></label>
           <input formControlName="address1" type="text" class="form-control" id="profile-first-name" placeholder="Address Line 1">
+          <small *ngIf="f.address1.value === '' && (f.address1.dirty || f.address1.touched )" id="passwordHelpBlock" class="form-text text-muted"
+          >This field is required.</small>
+          <small *ngIf="f.address1.value !== '' && f.address1.errors?.addressValidation" id="passwordHelpBlock" class="form-text text-muted"
+          > Please enter valid address.</small>
         </div>
         <div class="form-group">
           <label for="profile-first-name">Address Line 2</label>
@@ -28,6 +36,8 @@
             <option>Select</option>
           </select> -->
           <input formControlName="country" type="text" class="form-control" id="profile-first-name" placeholder="Address Line 2">
+          <small *ngIf="f.country.value === '' && (f.country.dirty || f.country.touched )" id="passwordHelpBlock" class="form-text text-muted"
+        >This field is required.</small>
         </div>
       </div>
       <div class="col-12 col-lg-1 col-xl-1"></div>
@@ -38,6 +48,8 @@
             <option>Select</option>
           </select> -->
           <input formControlName="state" type="text" class="form-control" id="profile-first-name" placeholder="Address Line 2">
+          <small *ngIf="f.state.value === '' && (f.state.dirty || f.state.touched )" id="passwordHelpBlock" class="form-text text-muted"
+        >This field is required.</small>
         </div>
       </div>
     </div>
@@ -49,13 +61,17 @@
             <option>Select</option>
           </select> -->
           <input formControlName="city" type="text" class="form-control" id="profile-first-name" placeholder="Address Line 2">
+          <small *ngIf="f.city.value === '' && (f.city.dirty || f.city.touched )" id="passwordHelpBlock" class="form-text text-muted"
+        >This field is required.</small>
         </div>
       </div>
       <div class="col-12 col-lg-1 col-xl-1"></div>
       <div class="col-12 col-lg-3 col-xl-3">
         <div class="form-group">
           <label for="profile-first-name">Pin Code <small class="asterik">*</small></label>
-          <input formControlName="pincode" type="text" class="form-control" id="profile-first-name" placeholder="Pin Code">
+          <input formControlName="pinCode" type="text" class="form-control" id="profile-first-name" placeholder="Pin Code">
+          <small *ngIf="f.pinCode.value === '' && (f.pinCode.dirty || f.pinCode.touched )" id="passwordHelpBlock" class="form-text text-muted"
+        >This field is required.</small>
         </div>
       </div>
     </div>
@@ -64,36 +80,45 @@
         <div class="form-group">
           <label for="profile-first-name">Company GST <small class="asterik">*</small></label>
           <input formControlName="gst" type="text" class="form-control" id="profile-first-name" placeholder="Company GST">
+          <small *ngIf="f.gst.value === '' && (f.gst.dirty || f.gst.touched )" id="passwordHelpBlock" class="form-text text-muted"
+        >This field is required.</small>
         </div>
       </div>
       <div class="col-12 col-lg-7 col-xl-7">
         <div class="form-group">
           <label for="profile-first-name">Business Email</label>
-          <input formControlName="b_email" type="text" class="form-control" id="profile-first-name" placeholder="Business Email">
+          <input formControlName="businessEmail" type="text" class="form-control" id="profile-first-name" placeholder="Business Email">
+          <!-- <small *ngIf="f.businessEmail.value === '' && (f.businessEmail.dirty || f.businessEmail.touched )" id="passwordHelpBlock" class="form-text text-muted"
+        >This field is required.</small> -->
         </div>
       </div>
       <div class="col-12 col-lg-7 col-xl-7">
         <div class="form-group">
           <label for="profile-first-name">Mobile</label>
           <input formControlName="mobile" type="text" class="form-control" id="profile-first-name" placeholder="Mobile">
+          
+              <small *ngIf="f.mobile.value !== '' &&  f.mobile.errors?.contactNumberValidation" id="passwordHelpBlock" class="form-text text-muted"
+            >This field only accepts 10 or 13 digits.</small>
         </div>
       </div>
       <div class="col-12 col-lg-7 col-xl-7">
         <div class="form-group">
           <label for="profile-first-name">Landline</label>
           <input formControlName="landline" type="text" class="form-control" id="profile-first-name" placeholder="Landline">
+              <small *ngIf="f.landline.value !== '' &&  f.landline.errors?.contactNumberValidation" id="passwordHelpBlock" class="form-text text-muted"
+            >This field only accepts 10 or 13 digits.</small>
         </div>
       </div>
       <div class="col-12 col-lg-7 col-xl-7">
           <div class="form-group">
             <label for="profile-first-name">No. of Employees</label>
-            <input formControlName="employee_count" type="text" class="form-control" id="profile-first-name" placeholder="No. of Employees">
+            <input formControlName="numberOfEmployees" type="number" class="form-control" id="profile-first-name" placeholder="No. of Employees">
           </div>
         </div>
     </div>
     <div class="form-group  mb-0">
       <button class="btn btn-primary" routerLink="../personal">Back</button>&nbsp;
-      <button class="btn btn-primary" routerLink="../keyperson">Next</button>
+      <button class="btn btn-primary" type="submit" [disabled]="!registerService.buisnessDetails.valid">Next</button>
     </div>
-  </div>
+  </form>
 </div>

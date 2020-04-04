@@ -11,7 +11,7 @@ import { catchError } from 'rxjs/internal/operators/catchError';
 export class ApiService {
 
   
-  baseUrl=' http://13.233.151.89:8020';
+  baseUrl='http://13.233.151.89:8020';
 
   constructor(private http: HttpClient,
     private jwtService: JwtService) { }
@@ -32,11 +32,10 @@ export class ApiService {
       ).pipe(catchError(this.formatErrors));
     }
   
-    post(path: string, body: Object = {}): Observable<any> {
-      
+    post(path: string, body: Object = {}, params: HttpParams = new HttpParams()): Observable<any> {
       return this.http.post(
         this.baseUrl+ `${path}`,
-        JSON.stringify(body),{observe: 'response'}
+        JSON.stringify(body), { params }
       ).pipe(catchError(this.formatErrors));
     }
   

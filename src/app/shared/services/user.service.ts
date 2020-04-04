@@ -2,7 +2,7 @@ import { JwtService } from './jwt.service';
 
 import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/operators';
-import { User } from '../interfaces/user';
+import { UserDetail } from '../interfaces/user';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { distinctUntilChanged } from 'rxjs/internal/operators/distinctUntilChanged';
@@ -16,7 +16,7 @@ import { CommonService } from './common.service';
 })
 export class UserService {
 
-  private currentUserSubject = new BehaviorSubject<User>({} as User);
+  private currentUserSubject = new BehaviorSubject<UserDetail>({} as UserDetail);
   public currentUser = this.currentUserSubject.asObservable().pipe(distinctUntilChanged());
 
   private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
@@ -27,7 +27,9 @@ export class UserService {
     private apiService: ApiService, 
     private router: Router,
     private _commonService : CommonService,
-  ) { }
+  ) {
+    this.populate();
+   }
 
   // Response we are getting is accessToken and tokenType which are not presesnt
   // in user class
@@ -74,13 +76,13 @@ export class UserService {
     // Remove JWT from localstorage
     this.jwtService.destroyToken();
     // Set current user to an empty object
-    this.currentUserSubject.next({} as User);
+    this.currentUserSubject.next({} as UserDetail);
     // Set auth status to false
     this.isAuthenticatedSubject.next(false);
     this.destroyUser();
   }
 
-  attemptAuth(credentials): Observable<User> {
+  attemptAuth(credentials): Observable<UserDetail> {
     const route = '/login';
     return this.apiService.post(route, credentials).pipe(
       map(data => {
@@ -107,7 +109,7 @@ export class UserService {
     })
   }
 
-  getCurrentUser(): User {
+  getCurrentUser(): UserDetail {
     return this.currentUserSubject.value;
   }
 
@@ -124,7 +126,7 @@ export class UserService {
   }
 
   // Update the user on the server (email, pass, etc)
-  update(user): Observable<User> {
+  update(user): Observable<UserDetail> {
     return this.apiService
       .put('/user', { user })
       .pipe(map(data => {

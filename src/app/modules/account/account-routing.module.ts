@@ -104,7 +104,7 @@ const routes: Routes = [
             {
                 path: 'trade',
                 component: PageTradeComponent,
-                canActivate : [UserGuardGuard]
+                // canActivate : [UserGuardGuard]
             },
             {
                 path: 'confirm',

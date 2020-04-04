@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { RegisterService } from 'src/app/shared/services/register.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-page-business',
@@ -8,28 +9,31 @@ import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 })
 export class PageBusinessComponent implements OnInit {
 
-  buisnessDetails : FormGroup;
+  
 
   constructor(
-    private _fb : FormBuilder,
+    public registerService: RegisterService,
+    private router:Router
   ) {
-    this.buisnessDetails = this._fb.group({
-      c_name : new FormControl(),
-      address1 : new FormControl(),
-      address2 : new FormControl(),
-      city : new FormControl(),
-      state : new FormControl(),
-      country : new FormControl(),
-      pincode : new FormControl(),
-      gst : new FormControl(),
-      b_email : new FormControl(),
-      mobile : new FormControl(),
-      landline : new FormControl(),
-      employee_count : new FormControl(),
-    })
    }
 
   ngOnInit() {
+  
+    
+  }
+
+  submitBusinesDetails() {
+    
+    this.registerService.submitBusinesDetails();
+    
+
+  }
+
+  
+
+
+  get f() {
+    return this.registerService.buisnessDetails.controls;
   }
 
 }

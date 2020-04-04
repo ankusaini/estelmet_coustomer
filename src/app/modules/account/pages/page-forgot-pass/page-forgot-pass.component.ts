@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { RegisterService } from 'src/app/shared/services/register.service';
+import { CustomValidator } from 'src/app/validators/custom-validators';
+import { ToastrService } from 'ngx-toastr';
+import { AccountService } from 'src/app/shared/services/account.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-page-forgot-pass',
@@ -7,9 +13,64 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PageForgotPassComponent implements OnInit {
 
-  constructor() { }
+  public firstForm: FormGroup;
+  public secondForm: FormGroup;
+  public enterOtp : boolean = false;
+
+  constructor(private registerService: RegisterService, private toastr: ToastrService,
+    private router: Router,
+    private accountService: AccountService) { }
 
   ngOnInit() {
+    this.createFirstForm();
+    this.createSecondForm();
+  }
+
+  createFirstForm() {
+   this.firstForm = new FormGroup({
+    email: new FormControl('', [Validators.email, Validators.required]),
+    number: new FormControl('', [CustomValidator.contactNumberValidation, Validators.required])
+   })
+  }
+
+  createSecondForm() {
+    this.secondForm = new FormGroup({
+      newPassword: new FormControl('', [Validators.required]),
+      confirmPassword: new FormControl('', [Validators.required]),
+      otp: new FormControl('', [Validators.required]),
+
+     })
+  }
+
+  // submitFirstForm() {
+  //   this.registerService.sendOTP(this.firstForm.value.email, this.firstForm.value.number).subscribe(
+  //     res => {
+  //       if(res.message === "Success"){
+  //         this.toastr.success("OTP sent successfully."); 
+  //         this.enterOtp = true;
+  //       } else {
+  //         this.toastr.error("Error sending OTP."); 
+  //       }
+  //       console.log(res);
+  //     }, error => {
+  //       console.log(error);
+  //     }
+  //   );
+
+  // }
+
+  submitSecondForm() {
+    this.accountService.forgetPassword(this.secondForm.value.newPassword,
+      this.secondForm.value.confirmPassword,
+      this.secondForm.value.otp, this.firstForm.value.number).subscribe(
+        res => {
+          this.toastr.success("Password Reset successfully!");
+          this.router.navigateByUrl('/classic/account/login');
+        }, error => {
+          console.log(error);
+        }
+      )
+
   }
 
 }

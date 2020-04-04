@@ -3,12 +3,12 @@
       <h5>Confirmation</h5>
     </div>
     <div class="card-divider"></div>
-    <div class="card-body">
+    <form [formGroup]="termsConditions" class="card-body">
         <div class="form-group">
             <div class="form-check">
                 <span class="form-check-input input-check">
                     <span class="input-check__body">
-                        <input class="input-check__input" type="checkbox" id="login-remember">
+                        <input class="input-check__input" type="checkbox" formControlName="verify" id="login-remember">
                         <span class="input-check__box"></span>
                         <app-icon class="input-check__icon" name="check-9x7" size="9x7"></app-icon>
                     </span>
@@ -18,8 +18,8 @@
         </div>
        <div class="center">
           <div class="form-group  mb-0">
-              <button class="btn btn-success">Submit</button>
+              <button class="btn btn-success" [disabled]="!termsConditions.valid" (click)="submitTermsCond()">Submit</button>
           </div>
        </div>
-    </div>
+    </form>
   </div>

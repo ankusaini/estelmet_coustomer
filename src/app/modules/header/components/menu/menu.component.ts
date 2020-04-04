@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { NestedLink } from '../../../../shared/interfaces/nested-link';
 import { UserService } from 'src/app/shared/services/user.service';
+import { ApiService } from 'src/app/shared/services/api.service';
 
 @Component({
     selector: 'app-header-menu',
@@ -12,10 +13,19 @@ export class MenuComponent {
     @Input() items: NestedLink[] = [];
 
     constructor(
-        private _userService : UserService,
+        private userService : UserService,
+        private apiService: ApiService
     ) { }
 
     logout(){
-        this._userService.purgeAuth();
+        let url= '/estelmet/logout';
+        this.apiService.get(url).subscribe(
+            res => {
+                // this.userService.purgeAuth();
+                this.userService.logout();
+            }, error => {
+                console.log(error);
+            }
+        )
     }
 }

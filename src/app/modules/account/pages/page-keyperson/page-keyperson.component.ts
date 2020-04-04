@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+
+import { RegisterService } from 'src/app/shared/services/register.service';
+import { UserDetail } from 'src/app/shared/interfaces/user';
 
 @Component({
   selector: 'app-page-keyperson',
@@ -8,22 +10,29 @@ import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 })
 export class PageKeypersonComponent implements OnInit {
 
-  keyPerson : FormGroup;
+  
+  public userData: UserDetail;
 
   constructor(
-    private _fb : FormBuilder,
+    public registerService: RegisterService,
   ) {
-    this.keyPerson = this._fb.group({
-      name : new FormControl(),
-      designation : new FormControl(),
-      phone1 : new FormControl(),
-      phone2 : new FormControl(),
-      email1 : new FormControl(),
-      email2 : new FormControl(),
-    })
+    
   }
 
   ngOnInit() {
+ 
+    } 
+    
+  
+
+  submitKeyPerson() {
+    this.registerService.submitKeyPerson();
+    
+  }
+
+
+  get f() {
+    return this.registerService.keyPerson.controls;
   }
 
 }
