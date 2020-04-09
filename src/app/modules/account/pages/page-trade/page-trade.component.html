@@ -142,7 +142,8 @@
         </div>
       </div>
       <div class="col-12 col-lg-4 col-xl-4">
-        <button class="btn btn-primary mt-4" (click)="addMore()" [disabled]="!registerService.tradeDetails.valid">Add More</button>
+        <button class="btn btn-primary mt-4" [disabled]="!registerService.tradeDetails.valid" (click)="addMore()">Add More</button>
+        
       </div>
     </div>
   </form>
@@ -182,39 +183,23 @@
                   <td>{{ item?.temperMin + " - " + item?.temperMax }}</td>
                   <td>{{ item?.monthlyRequirement }}</td>
                   <td>
-                    <app-icon name="cross-12" size="12" (click)="removeFromList(item)" ></app-icon>
+                    <span><app-icon name="cross-12" size="12" (click)="removeFromList(item)" ></app-icon></span>
+                    <span>
+                      <i class="fa fa-pencil" (click)="editTradeDetailsFromList(item)">Edit</i>
+                      <!-- <app-icon name="pen -12" size="12" (click)="editList(item)" ></app-icon> -->
+                    </span>
                   </td>
                 </tr>
               </tbody>
             </table>
-            <!-- <table>
-              <thead>
-                <tr>
-                  <th>Order</th>
-                  <th>Date</th>
-                  <th>Status</th>
-                  <th>Total</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let order of orders">
-                  <td><a href="">#{{ order.id }}</a></td>
-                  <td>{{ order.date }}</td>
-                  <td>{{ order.status }}</td>
-                  <td>{{ order.total }}</td>
-                  <td><app-icon name="cross-12" size="12" ></app-icon></td>
-                </tr>
-              </tbody>
-            </table> -->
           </div>
         </div>
       </div>
     </div>
     <div class="form-group  mb-0">
         <button class="btn btn-primary mt-5" routerLink="../keyperson">Back</button>&nbsp;
-      <!-- <button class="btn btn-primary mt-5" *ngIf="mode !== ''" (click)="updateUser()" [disabled]="!registerService.tradArray.length > 0">Update</button> -->
-      <button class="btn btn-primary mt-5"  (click)="submitTradeDetails()" [disabled]="!registerService.tradArray.length > 0">Next</button>
+      <button class="btn btn-primary mt-5" *ngIf="registerService.isLoggedIn" (click)="updateTradeDetails()" [disabled]="!registerService.tradArray.length > 0">Update</button>
+      <button class="btn btn-primary mt-5" *ngIf="!registerService.isLoggedIn" (click)="submitTradeDetails()" [disabled]="!registerService.tradArray.length > 0">Next</button>
     </div>
   </div>
 </div>

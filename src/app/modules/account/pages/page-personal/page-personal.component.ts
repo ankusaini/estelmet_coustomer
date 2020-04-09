@@ -27,7 +27,8 @@ export class PagePersonalComponent implements OnInit {
 
   sendOTP() {
     this.enterOTP = true;
-    this.registerService.sendOTP().subscribe(
+    this.registerService.sendOTP(this.registerService.basicDetails.value.email, 
+      this.registerService.basicDetails.value.mobile).subscribe(
       res => {
         if(res.message === "Success"){
           this.toastr.success("OTP sent successfully."); 

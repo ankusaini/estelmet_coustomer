@@ -5,8 +5,56 @@ import { CommonService } from 'src/app/shared/services/common.service';
 import { SaleList } from 'src/app/shared/interfaces/latestOffers';
 import { CartService } from 'src/app/shared/services/cart.service';
 import { Product, UserProductPreference, Status, ProductStage, ProductType, ProductCategory, ProductShape, ProductClass, ProductTemper } from 'src/app/shared/interfaces/product';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { StaticDataService } from 'src/app/shared/services/static-data.service';
+import { RegisterService } from 'src/app/shared/services/register.service';
+import { CustomValidator } from 'src/app/validators/custom-validators';
+import { UserService } from 'src/app/shared/services/user.service';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
+import { UserDetail } from 'src/app/shared/interfaces/user';
+
+
+function MaxlengthConfirming(c: AbstractControl): any {
+  if(!c.parent || !c) return;
+  const minLength = (c.parent.get("lengthMin"));
+  const maxLength = (c.parent.get("lengthMax"));
+  if(!maxLength || ! minLength) return;
+  if(maxLength.value < minLength.value) {
+    return { invalid: true};
+  } 
+}
+
+function MaxwidthConfirming(c: AbstractControl): any {
+  if(!c.parent || !c) return;
+  const minWidth = (c.parent.get("widthMin"));
+  const maxWidth = (c.parent.get("widthMax"));
+  if(!maxWidth || ! minWidth) return;
+  if(maxWidth.value < minWidth.value) {
+    return { invalid: true};
+  } 
+}
+
+function MaxthicknessConfirming(c: AbstractControl): any {
+  if(!c.parent || !c) return;
+  const minThickness = (c.parent.get("thicknessMin"));
+  const maxThickness = (c.parent.get("thicknessMax"));
+  if(!maxThickness || ! minThickness) return;
+  if(maxThickness.value < minThickness.value) {
+    return { invalid: true};
+  } 
+}
+
+function MaxtemperConfirming(c: AbstractControl): any {
+  if(!c.parent || !c) return;
+  const minTemper = (c.parent.get("temperMin"));
+  const maxTemper = (c.parent.get("temperMax"));
+  if(!maxTemper || ! minTemper) return;
+  if(maxTemper.value < minTemper.value) {
+    return { invalid: true};
+  } 
+}
+
 
 @Component({
   selector: 'app-block-quote',
@@ -22,8 +70,31 @@ export class BlockQuoteComponent implements OnInit {
   public productShapeList: ProductShape[];
   public productClassList: ProductClass[];
   public productTemperList: ProductTemper[];
+  public isLogin: boolean;
+  public userId: any;
+  public userDto: UserDetail = {};
+  public tradeArrList: any[] = [];
+
+  public quoteForm = new FormGroup({
+    userProductPreferenceId: new FormControl(""),
+    productType: new FormControl("", [Validators.required]),
+    productCategory: new FormControl("", [Validators.required]),
+    productShape: new FormControl("", [Validators.required]),
+    productClass: new FormControl("", [Validators.required]),
+    thicknessMin: new FormControl("", [Validators.required, CustomValidator.compondValueValidate]),
+    thicknessMax: new FormControl("", [Validators.required, CustomValidator.compondValueValidate, MaxthicknessConfirming]),
+    temperMin: new FormControl("", [Validators.required, CustomValidator.compondValueValidate]),
+    temperMax: new FormControl("", [Validators.required, CustomValidator.compondValueValidate, MaxtemperConfirming]),
+    lengthMin: new FormControl("", [CustomValidator.compondValueValidate]),
+    lengthMax: new FormControl("", [CustomValidator.compondValueValidate, MaxlengthConfirming]),
+    widthMin: new FormControl("",[CustomValidator.compondValueValidate]),
+    widthMax: new FormControl("", [CustomValidator.compondValueValidate, MaxwidthConfirming]),
+    monthlyRequirement: new FormControl("", [Validators.required, CustomValidator.compondValueValidate])
+  });
+
+
   product : Product = {};
-  quoteForm : FormGroup;
+  // quoteForm : FormGroup;
   isSubmit : boolean = false;
   // blockProduct : Product;
   newArrivals = {
@@ -67,23 +138,28 @@ export class BlockQuoteComponent implements OnInit {
     public cart: CartService, 
     private cd: ChangeDetectorRef,
     private _fb : FormBuilder,
-    private _staticData : StaticDataService
+    private router: Router,
+    private apiService: ApiService,
+    private _staticData : StaticDataService,
+    private toastr: ToastrService,
+    public registerService: RegisterService,
+    private userService: UserService
   ) {
     this.initializeProduct();
-    this.quoteForm = this._fb.group({
-      productType : new FormControl('', Validators.required),
-      productCategory : new FormControl('', Validators.required),
-      productShape : new FormControl('', Validators.required),
-      productClass : new FormControl('', Validators.required),
-      thicknessMin : new FormControl('', Validators.required),
-      thicknessMax : new FormControl('', ),
-      widthMin : new FormControl('', Validators.required),
-      widthMax : new FormControl('', ),
-      lengthMin : new FormControl('', Validators.required),
-      lengthMax : new FormControl('', ),
-      temperMin : new FormControl(''),
-      temperMax : new FormControl(''), 
-    })
+    // this.quoteForm = this._fb.group({
+    //   productType : new FormControl('', Validators.required),
+    //   productCategory : new FormControl('', Validators.required),
+    //   productShape : new FormControl('', Validators.required),
+    //   productClass : new FormControl('', Validators.required),
+    //   thicknessMin : new FormControl('', Validators.required),
+    //   thicknessMax : new FormControl('', ),
+    //   widthMin : new FormControl('', Validators.required),
+    //   widthMax : new FormControl('', ),
+    //   lengthMin : new FormControl('', Validators.required),
+    //   lengthMax : new FormControl('', ),
+    //   temperMin : new FormControl(''),
+    //   temperMax : new FormControl(''), 
+    // })
   }
 
   initializeProduct() {
@@ -136,27 +212,74 @@ export class BlockQuoteComponent implements OnInit {
     this.getAllProductShape();
     this.getAllProductClass();
     this.getAllProductTemper();
+    this.userService.isAuthenticated.subscribe(
+      res => {
+        this.isLogin = res;
+      }, error => {
+        console.log(error);
+      }
+    )
+
   }
 
-  addToCart(): void {
-    this.isSubmit = true;
-    if(this.quoteForm.status == 'VALID'){
-      this.preparequotation();
-      console.log(this.product);
-      if (this.product.addToCart) {
-        return;
+  submitQuoteForm() {
+    if(this.isLogin) {
+      // this.toastr.success("Added successfully!");
+      this.userId = JSON.parse(this.userService.getUser()).id;
+      if(this.userDto !== {}) {
+      if(this.userId) {
+          this.registerService.findUserById(this.userId).subscribe(
+              res => {
+                  this.userDto = res;
+                  this.tradeArrList = this.userDto.userProductPreference;
+              }, error => {
+                  console.log(error);
+              }
+          );
       }
-      this.product.addToCart = true;
-      this.cart.add(this.product, 1).subscribe({
-        complete: () => {
-          this.product.addToCart = false;
-          this.cd.markForCheck();
-        }
-      });
-    } else {
-      console.log(this.quoteForm);
     }
+    this.tradeArrList.push(this.quoteForm.value);
+    this.updateProductPreference();
+    
+    } else {
+      this.toastr.error("You are not Login!");
+      this.router.navigateByUrl('/classic/account/login');
+    }
+    
   }
+
+  updateProductPreference() {
+    let url = '/estelmet/users/saveUserProductPreference';
+    this.apiService.put(url, this.userDto.userProductPreference).subscribe(
+        res => {
+          this.toastr.success("Added successfully");
+        }, error => {
+          console.log(error);
+        }
+    )
+  }
+
+
+  // addToCart(): void {
+  //   this.isSubmit = true;
+  //   if(this.registerService.tradeDetails.status == 'VALID'){
+  //     // if(this.quoteForm.status == 'VALID'){
+  //     this.preparequotation();
+  //     console.log(this.product);
+  //     if (this.product.addToCart) {
+  //       return;
+  //     }
+  //     this.product.addToCart = true;
+  //     this.cart.add(this.product, 1).subscribe({
+  //       complete: () => {
+  //         this.product.addToCart = false;
+  //         this.cd.markForCheck();
+  //       }
+  //     });
+  //   } else {
+  //     // console.log(this.quoteForm);
+  //   }
+  // }
 
   preparequotation(){
     this.product.productShape.id = this.f.productShape.value;

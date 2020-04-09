@@ -3,7 +3,7 @@
         <h5>Edit Profile</h5>
     </div>
     <div class="card-divider"></div>
-    <form [formGroup]="basicDetails" class="card-body">
+    <form [formGroup]="registerService.basicDetails" class="card-body">
         <div class="row no-gutters">
             <div class="col-12 col-lg-7 col-xl-6">
                 <div class="form-group">
@@ -44,7 +44,7 @@
                    
 
                 <div class="form-group mt-5 mb-0">
-                    <button class="btn btn-primary" (click)="updateBasicDetails()" >Next</button>
+                    <button class="btn btn-primary" (click)="updateBasicDetails()" [disabled]="!registerService.basicDetails.valid" >Update</button>
                 </div>
             </div>
         </div>

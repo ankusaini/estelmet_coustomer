@@ -14,7 +14,7 @@ export class RegisterLayoutComponent implements OnInit {
     {label: 'Personal Details', url: './personal', loginRequired : false},
     {label: 'Business Details', url: './business', loginRequired : false},
     {label: 'Key Person Details', url: './keyperson', loginRequired : false},
-    {label: 'Trade Details', url: './trade', loginRequired : true},
+    {label: 'Trade Details', url: './trade', loginRequired : false},
     {label: 'Confirmation', url: './confirm', loginRequired : false},
 ];
 userLoggedIn : boolean;

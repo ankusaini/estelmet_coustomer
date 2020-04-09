@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/shared/services/user.service';
+import { AccountService } from 'src/app/shared/services/account.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './page-login.component.html',
   styleUrls: ['./page-login.component.scss']
 })
-export class PageLoginComponent {
+export class PageLoginComponent implements OnInit {
   errorMsg: string = '';
   authForm: FormGroup;
   name = '';
@@ -17,12 +18,15 @@ export class PageLoginComponent {
     private fb: FormBuilder, 
     private router: Router, 
     private userService: UserService,
+    private accountService: AccountService,
     private route : ActivatedRoute,
   ) {
     let params = this.route.snapshot.queryParams;
     if (params['redirectURL']) {
         this.redirectURL = params['redirectURL'];
     }
+
+    
 
     this.authForm = this.fb.group({
       'username': ['', Validators.required],
@@ -40,6 +44,10 @@ export class PageLoginComponent {
       }
     });
   }
+
+  ngOnInit(){
+  }
+
   submitForm() {
     // this.isSubmitting = true;
     // this.errors = {errors: {}};

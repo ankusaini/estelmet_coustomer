@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { StaticDataService } from 'src/app/shared/services/static-data.service';
 import { ProductType, ProductCategory, ProductShape, ProductClass } from 'src/app/shared/interfaces/product';
 import { RegisterService } from 'src/app/shared/services/register.service';
@@ -16,7 +15,7 @@ export class PageTradeComponent implements OnInit {
   public productCategoryList: ProductCategory[];
   public productShapeList: ProductShape[];
   public productClassList: ProductClass[];
-
+  public isValid: boolean = false;
 
   constructor(private staticData: StaticDataService,
     private toastr: ToastrService,
@@ -34,8 +33,7 @@ export class PageTradeComponent implements OnInit {
 
   addMore() {
     this.registerService.addToTradeDetailsArray();
-
-    
+ 
   }
 
   submitTradeDetails() {
@@ -43,11 +41,10 @@ export class PageTradeComponent implements OnInit {
     this.registerService.submitTradeDetails();
       }
 
-  updateUser() {
-    this.registerService.submitTradeDetails();
-    this.registerService.updateUser().subscribe(
+  updateTradeDetails() {
+    this.registerService.updateTradeDetails().subscribe(
       res => {
-        this.toastr.success("User updated Successfully!");
+        this.toastr.success("User Product Preference Updated Sucessfully!");
       }, error => {
         console.log(error);
       }
@@ -59,6 +56,10 @@ export class PageTradeComponent implements OnInit {
     if (index !== -1) {
       this.registerService.tradArray.splice(index, 1);
     }
+  }
+
+  editTradeDetailsFromList(item) {
+    this.registerService.editTradeDetailsFromList(item);
   }
 
   getProductType() {

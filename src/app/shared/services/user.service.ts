@@ -19,7 +19,7 @@ export class UserService {
   private currentUserSubject = new BehaviorSubject<UserDetail>({} as UserDetail);
   public currentUser = this.currentUserSubject.asObservable().pipe(distinctUntilChanged());
 
-  private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
+  private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
   public isAuthenticated = this.isAuthenticatedSubject.asObservable();
 
   constructor(
@@ -80,6 +80,7 @@ export class UserService {
     // Set auth status to false
     this.isAuthenticatedSubject.next(false);
     this.destroyUser();
+    console.log(this.isAuthenticated);
   }
 
   attemptAuth(credentials): Observable<UserDetail> {

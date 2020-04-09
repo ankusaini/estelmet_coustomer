@@ -1,8 +1,8 @@
-import { Injectable, OnInit, ɵConsole } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
 import { ApiService } from './api.service';
-import { Observable } from 'rxjs';
-import { UserDetail, BusinessDetails } from '../interfaces/user';
+import { Observable, observable } from 'rxjs';
+import { UserDetail } from '../interfaces/user';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from './user.service';
 import { FormGroup, FormControl, Validators, AbstractControl, FormArray } from '@angular/forms';
@@ -66,13 +66,9 @@ export class RegisterService implements OnInit {
     public userDto : UserDetail = {};
     public userId: any;
     public tradArray = [];
-    // public basicDetails : FormGroup;
-    // public buisnessDetails : FormGroup;
-    // public tradeDetails : FormGroup;
-    // public keyPerson : FormGroup;
-
+    public isLoggedIn : boolean;
+    
     public basicDetails = new FormGroup({
-        // this.utils.noWhitespaceValidator,CustomValidator.emailValidate
         userDetailId: new FormControl(""),
         firstName: new FormControl("", [
           Validators.required,
@@ -86,7 +82,7 @@ export class RegisterService implements OnInit {
           Validators.required,
           CustomValidator.contactNumberValidation
         ]),
-        email: new FormControl("", [
+        emailId: new FormControl("", [
           Validators.required, 
           Validators.email
         ]),
@@ -94,7 +90,7 @@ export class RegisterService implements OnInit {
         cpassword: new FormControl("", [Validators.required, passwordConfirming]),
         userRole: new FormControl("", [Validators.required]),
         otp: new FormControl("", [Validators.required]),
-        
+        image: new FormControl("")
       });
 
 
@@ -142,13 +138,13 @@ export class RegisterService implements OnInit {
       });
 
       public keyPerson = new FormGroup({
-        keyPersonId1: new FormControl(""),
-        fullName1: new FormControl("", [Validators.required, Validators.minLength(3)]),
-        designation1: new FormControl("", [Validators.required]),
+        keyPersonId: new FormControl(""),
+        name: new FormControl("", [Validators.required, Validators.minLength(3)]),
+        designation: new FormControl("", [Validators.required]),
         mobile1: new FormControl("", [Validators.required, CustomValidator.contactNumberValidation]),
-        mobile2: new FormControl("", [Validators.required, CustomValidator.contactNumberValidation]),
+        mobile2: new FormControl("", [CustomValidator.contactNumberValidation]),
         email1: new FormControl("", [Validators.required, Validators.email]),
-        email2: new FormControl("", [Validators.required, Validators.email])
+        email2: new FormControl("", [Validators.email])
       });
 
     constructor(private apiService: ApiService,
@@ -160,6 +156,8 @@ export class RegisterService implements OnInit {
         this.userService.isAuthenticated.subscribe(
             res => {
                 if(res) {
+                    this.isLoggedIn = res;
+                    console.log(this.isLoggedIn);
                     this.userId = JSON.parse(this.userService.getUser()).id;
                     if(this.userId) {
                         this.findUserById(this.userId).subscribe(
@@ -191,9 +189,9 @@ export class RegisterService implements OnInit {
         this.tradArray = data.userProductPreference;
     }
 
-    findUserById(userId) {
+    findUserById(id) {
         let url = '/estelmet/users/find';
-        const params: HttpParams = new HttpParams().set("userId", userId);
+        const params: HttpParams = new HttpParams().set("userId", id);
         return new Observable<any>(
             obs => {
                 this.apiService.get(url, params).subscribe(
@@ -216,6 +214,23 @@ export class RegisterService implements OnInit {
             res => {
                 console.log(res);
                 // this.signup();
+                let credentials = {
+                    firstName: this.basicDetails.value.firstName,
+                    lastName: this.basicDetails.value.lastName,
+                    emailId : this.basicDetails.value.emailId,
+                    mobile: this.basicDetails.value.mobile,
+                    password: this.basicDetails.value.password,
+                    userRole: this.basicDetails.value.userRole,
+                    isEnableMobileNumber: true,
+                    
+                }
+                this.userService.attempiSignUp(credentials).subscribe(
+                    res =>{
+                        console.log(res);
+                    }, error => {
+                        console.log(error);
+                    }
+                );
             }, error => {
                 console.log(error);
             }
@@ -273,7 +288,7 @@ export class RegisterService implements OnInit {
     }
 
     submitTradeDetails() {
-                   this.router.navigateByUrl('/classic/account/confirm');
+        this.router.navigateByUrl('/classic/account/confirm');
     }
 
 
@@ -286,12 +301,6 @@ export class RegisterService implements OnInit {
 
     }
 
-        
-
-        editTradeDetails() {
-            this.tradeDetails.patchValue(this.userDto.userProductPreference);
-        }
-
     submitBasicDetails() {
         this.router.navigateByUrl('/classic/account/business');
     }
@@ -301,11 +310,17 @@ export class RegisterService implements OnInit {
         this.tradeDetails.reset();
     }
 
-    sendOTP() {
+    editTradeDetailsFromList(data) {
+        let index = this.tradArray.indexOf(data);
+        this.tradeDetails.patchValue(data);
+        this.tradArray.splice(index, 1);
+    }
+
+    sendOTP(email, number) {
         let url = '/estelmet/common/sendOtp';
         const params: HttpParams = new HttpParams()
-        .set("number", this.basicDetails.value.mobile)
-        .set("email", this.basicDetails.value.email);
+        .set("number", number)
+        .set("email", email);
         return new Observable<any>(obs => {
             this.apiService.get(url, params).subscribe(
                 res => {
@@ -333,16 +348,7 @@ export class RegisterService implements OnInit {
         });
     }
 
-    updateBasicDetails(data) {
-        this.userDto.firstName = data.firstName;
-        this.userDto.lastName = data.lastName;
-        this.userDto.emailId = data.emailId;
-        this.userDto.mobile = data.mobile;
-        this.router.navigateByUrl('/classic/account/business');
-    }
-    
-
-    updateUser() {
+    updateBasicDetails() {
         let url = '/estelmet/users/updateUser';
         return new Observable<any>(
             obs => {
@@ -354,6 +360,45 @@ export class RegisterService implements OnInit {
                     }
                 );
 
+            }
+        )
+    }
+
+    updateBusinessDetails() {
+        let url = '/estelmet/users/updateBusinessDetails';
+        return new Observable<any>(
+            obs => {
+                this.apiService.put(url, this.userDto.businessDetails).subscribe(
+                    res => {
+                        obs.next(res);
+                    }
+                )
+            }
+        )
+    }
+
+    updateKeyPersonDetails() {
+        let url = '/estelmet/users/saveKeyPerson';
+        return new Observable<any>(
+            obs => {
+                this.apiService.put(url, this.userDto.keyPerson).subscribe(
+                    res => {
+                        obs.next(res);
+                    }
+                )
+            }
+        )
+    }
+
+    updateTradeDetails() {
+        let url = '/estelmet/users/saveUserProductPreference';
+        return new Observable<any>(
+            obs => {
+                this.apiService.put(url, this.userDto.userProductPreference).subscribe(
+                    res => {
+                        obs.next(res);
+                    }
+                )
             }
         )
     }

@@ -3,7 +3,7 @@
     <h5>Step 2 - Business Details</h5>
   </div>
   <div class="card-divider"></div>
-  <form [formGroup]="registerService.buisnessDetails" (ngSubmit)="submitBusinesDetails()" class="card-body">
+  <form [formGroup]="registerService.buisnessDetails" class="card-body">
     <div class="row">
       <div class="col-12 col-lg-7 col-xl-7">
         <div class="form-group">
@@ -118,7 +118,8 @@
     </div>
     <div class="form-group  mb-0">
       <button class="btn btn-primary" routerLink="../personal">Back</button>&nbsp;
-      <button class="btn btn-primary" type="submit" [disabled]="!registerService.buisnessDetails.valid">Next</button>
+      <button class="btn btn-primary" type="submit" (click)="submitBusinesDetails()" *ngIf="!registerService.isLoggedIn" [disabled]="!registerService.buisnessDetails.valid">Next</button>
+      <button class="btn btn-primary" type="submit" (click)="updateBusinessDetails()" *ngIf="registerService.isLoggedIn" [disabled]="!registerService.buisnessDetails.valid">Update</button>
     </div>
   </form>
 </div>

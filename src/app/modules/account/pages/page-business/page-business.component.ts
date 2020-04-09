@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RegisterService } from 'src/app/shared/services/register.service';
-import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-page-business',
@@ -9,28 +9,26 @@ import { Router } from '@angular/router';
 })
 export class PageBusinessComponent implements OnInit {
 
-  
-
   constructor(
     public registerService: RegisterService,
-    private router:Router
-  ) {
-   }
+    private toastr: ToastrService
+  ) { }
 
-  ngOnInit() {
-  
-    
-  }
+  ngOnInit() {  }
 
-  submitBusinesDetails() {
-    
+  submitBusinesDetails() {  
     this.registerService.submitBusinesDetails();
-    
-
   }
 
-  
-
+  updateBusinessDetails() {
+    this.registerService.updateBusinessDetails().subscribe(
+      res => {
+        this.toastr.success("Business Details Updated Sucessfully!");
+      }, error => {
+        console.log(error);
+      }
+    )
+  }
 
   get f() {
     return this.registerService.buisnessDetails.controls;

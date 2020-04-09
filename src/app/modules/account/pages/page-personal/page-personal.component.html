@@ -4,7 +4,7 @@
     </div>
     <div class="card-divider"></div>
     <div class="card-body">
-        <form [formGroup]="registerService.basicDetails"  #purchaseMr="ngForm" autocomplete="off" (ngSubmit)="submitBasicDetails()">
+        <form [formGroup]="registerService.basicDetails"  #purchaseMr="ngForm" autocomplete="off">
       <div class="row">
           <div class="col-12 col-lg-8 col-xl-8">
               <div class="form-group">
@@ -57,8 +57,8 @@
         <div class="col-12 col-lg-4 col-xl-4">
           <div class="form-group">
             <label for="profile-first-name">E-mail <small class="asterik">*</small></label>
-            <input type="email" class="form-control" id="profile-first-name" placeholder="E-mail" formControlName="email">
-            <small *ngIf="f.email.value === '' && (f.email.dirty || f.email.touched )" id="passwordHelpBlock" class="form-text text-muted"
+            <input type="email" class="form-control" id="profile-first-name" placeholder="E-mail" formControlName="emailId">
+            <small *ngIf="f.emailId.value === '' && (f.emailId.dirty || f.emailId.touched )" id="passwordHelpBlock" class="form-text text-muted"
         >This field is required.</small>
           </div>
         </div>
@@ -118,10 +118,10 @@
           </div>
           <div class="form-group  mb-0 mr-10" style="margin-right: 10px;" *ngIf="enterOTP">
             <button class="btn btn-primary "  [disabled]="markAsComplete"
-            (click)="SendOTP()">Resend OTP</button>
+            (click)="sendOTP()">Resend OTP</button>
           </div>
           <div class="form-group  mb-0">
-            <button class="btn btn-primary " type="submit" [disabled]="!registerService.basicDetails.valid">Next</button>
+            <button class="btn btn-primary " type="submit" (click)="submitBasicDetails()" [disabled]="!(registerService.basicDetails.valid && markAsComplete)">Next</button>
         </div>
       </div>
       </form>

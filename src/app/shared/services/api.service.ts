@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders, HttpBackend } from '@angular/common/http';
 import { JwtService } from './jwt.service';
 import { Observable, throwError } from 'rxjs';
 
@@ -14,6 +14,7 @@ export class ApiService {
   baseUrl='http://13.233.151.89:8020';
 
   constructor(private http: HttpClient,
+    private httpBackend: HttpBackend,
     private jwtService: JwtService) { }
 
     private formatErrors(error: any) {
@@ -44,4 +45,16 @@ export class ApiService {
         this.baseUrl+`${path}`
       ).pipe(catchError(this.formatErrors));
     }
+
+    putUserWithMedia(path,body)
+  {
+    const HttpUploadOptions = {
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + this.jwtService.getToken()
+      }),
+    }
+    this.http= new HttpClient(this.httpBackend);
+    return this.http.put(path,body,HttpUploadOptions).pipe(catchError(this.formatErrors));
+
+  }
 }
