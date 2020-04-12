@@ -33,7 +33,7 @@ export class ApiService {
       ).pipe(catchError(this.formatErrors));
     }
   
-    post(path: string, body: Object = {}, params: HttpParams = new HttpParams()): Observable<any> {
+    post(path: string, body: Object = {}, params?: HttpParams): Observable<any> {
       return this.http.post(
         this.baseUrl+ `${path}`,
         JSON.stringify(body), { params }
