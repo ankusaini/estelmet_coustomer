@@ -1,6 +1,7 @@
 <div class="card" *ngIf="registerService">
     <div class="card-header">
-      <h5>Step 1 - Personal Details</h5>
+      <h5 *ngIf="!registerService.isLoggedIn">Step 1 - Personal Details</h5>
+      <h5 *ngIf="registerService.isLoggedIn">Edit Personal Details</h5>
     </div>
     <div class="card-divider"></div>
     <div class="card-body">
@@ -57,13 +58,13 @@
         <div class="col-12 col-lg-4 col-xl-4">
           <div class="form-group">
             <label for="profile-first-name">E-mail <small class="asterik">*</small></label>
-            <input type="email" class="form-control" id="profile-first-name" placeholder="E-mail" formControlName="emailId">
+            <input  type="email" class="form-control" id="profile-first-name" placeholder="E-mail" formControlName="emailId">
             <small *ngIf="f.emailId.value === '' && (f.emailId.dirty || f.emailId.touched )" id="passwordHelpBlock" class="form-text text-muted"
         >This field is required.</small>
           </div>
         </div>
       </div>
-      <div class="row">
+      <div *ngIf="!registerService.isLoggedIn" class="row">
         <div class="col-12 col-lg-4 col-xl-4">
           <div class="form-group">
             <label for="profile-first-name">Password <small class="asterik">*</small></label>
@@ -84,14 +85,14 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-12 col-lg-4 col-xl-4" *ngIf="enterOTP">
+      <div *ngIf="!registerService.isLoggedIn" class="row">
+        <div class="col-12 col-lg-4 col-xl-4" *ngIf="registerService.enterOTP">
           <div class="form-group">
             <label for="inputPassword5"
           >Enter OTP<small class="asterik_sign">*</small></label
         >
             <input
-          [readonly] = "markAsComplete"
+          [readonly] = "registerService.markAsComplete"
           formControlName="otp"
           type="number"
           class="form-control"
@@ -104,24 +105,37 @@
         <div class="col-12 col-lg-4 col-xl-8">
         </div>
       </div>
+      <div *ngIf="registerService.isLoggedIn" class="row">
+        <div class="col-12 col-lg-4 col-xl-4">
+          <label for="profile-first-name">Upload Photo</label>
+          <input type="file" class="form-control">
+        </div>
+      </div>
 
+      <div class="row" *ngIf="registerService.isLoggedIn" >
+        <div class="form-group  mb-0">
+          <button class="btn btn-primary" (click)="updateBasicDetails()" [disabled]="!registerService.basicDetails.valid" >Update</button>
+        </div>
+      </div>
 
-      <div class="row">
+      <div class="row"  *ngIf="!registerService.isLoggedIn">
 
-          <div class="form-group mb-0 mr-10" style="margin-right: 10px;" *ngIf="!f.mobile.errors && !f.email.errors && !enterOTP">
-            <button class="btn btn-primary" [disabled]="(f.mobile.errors && f.email.errors)"
+          <div class="form-group mb-0 mr-10" style="margin-right: 10px;" >
+            <button class="btn btn-primary" [disabled]="(f.mobile.errors && f.emailId.errors && !registerService.enterOTP)"
             (click)="sendOTP()">Send OTP</button>
           </div>
-          <div class="form-group  mb-0 mr-10" style="margin-right: 10px;" *ngIf="enterOTP">
-            <button class="btn btn-primary " [disabled]="f.otp.errors || markAsComplete"
+          <div class="form-group  mb-0 mr-10" style="margin-right: 10px;" *ngIf="registerService.enterOTP">
+            <button class="btn btn-primary " [disabled]="f.otp.errors || registerService.markAsComplete"
             (click)="verifyOTP()">Verify OTP</button>
           </div>
-          <div class="form-group  mb-0 mr-10" style="margin-right: 10px;" *ngIf="enterOTP">
-            <button class="btn btn-primary "  [disabled]="markAsComplete"
+          <div class="form-group  mb-0 mr-10" style="margin-right: 10px;" *ngIf="registerService.enterOTP">
+            <button class="btn btn-primary "  [disabled]="registerService.markAsComplete"
             (click)="sendOTP()">Resend OTP</button>
           </div>
+          
+       
           <div class="form-group  mb-0">
-            <button class="btn btn-primary " type="submit" (click)="submitBasicDetails()" [disabled]="!(registerService.basicDetails.valid && markAsComplete)">Next</button>
+            <button class="btn btn-primary "  type="submit" (click)="submitBasicDetails()" [disabled]="!(registerService.basicDetails.valid && registerService.markAsComplete)">Next</button>
         </div>
       </div>
       </form>

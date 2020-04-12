@@ -57,4 +57,12 @@ export class ApiService {
     return this.http.put(path,body,HttpUploadOptions).pipe(catchError(this.formatErrors));
 
   }
+
+  postLogin(path: string, body: object = {}): Observable<any> {
+
+    return this.http.post(
+      this.baseUrl+`${path}`,
+      JSON.stringify(body), { observe: 'response' }
+    ).pipe(catchError(this.formatErrors));
+  }
 }

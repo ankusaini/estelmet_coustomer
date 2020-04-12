@@ -20,8 +20,8 @@
             </div>
             <div class="topbar__spring"></div>
             <div class="topbar__item">
-                <div class="topbar-dropdown" appDropdown="topbar-dropdown--opened" #accountDropdown="appDropdown">
-                    <!-- <div *ngIf="!this.loginOption" class="topbar-dropdown" appDropdown="topbar-dropdown--opened" #accountDropdown="appDropdown"> -->
+                <!-- <div class="topbar-dropdown" appDropdown="topbar-dropdown--opened" #accountDropdown="appDropdown"> -->
+                    <div *ngIf="!this.loginOption" class="topbar-dropdown" appDropdown="topbar-dropdown--opened" #accountDropdown="appDropdown">
                     <button class="topbar-dropdown__btn" type="button" (click)="accountDropdown.toggle()">
                         My Account
                         <app-icon name="arrow-rounded-down-7x5" size="7x5"></app-icon>

@@ -1,6 +1,7 @@
 <div class="card">
   <div class="card-header">
-    <h5>Step 3 - Key Person Details</h5>
+    <h5 *ngIf="!registerService.isLoggedIn">Step 3 - Key Person Details</h5>
+    <h5 *ngIf="registerService.isLoggedIn">Edit Key Person Details</h5>
   </div>
   <div class="card-divider"></div>
   <form [formGroup]="registerService.keyPerson" class="card-body" >
@@ -78,7 +79,7 @@
           </div>
       </div>
     <div class="form-group  mb-0">
-      <button class="btn btn-primary" routerLink="../business">Back</button>&nbsp;
+      <button class="btn btn-primary" *ngIf="!registerService.isLoggedIn" routerLink="../business">Back</button>&nbsp;
       <button class="btn btn-primary" type="submit" (click)="submitKeyPerson()" *ngIf="!registerService.isLoggedIn" [disabled]="!registerService.keyPerson.valid" >Next</button>
       <button class="btn btn-primary" type="submit" (click)="updateKeyPerson()" *ngIf="registerService.isLoggedIn" [disabled]="!registerService.keyPerson.valid" >Update</button>
     </div>
