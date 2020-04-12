@@ -29,24 +29,25 @@ export class PageDashboardComponent implements OnInit {
      }
 
      ngOnInit() {
-        this.getUser();
-        this.userId = JSON.parse(this.userService.getUser()).id;
+        this.user = JSON.parse(this.userService.getUser());
+        // this.getUser();
+        // this.userId = JSON.parse(this.userService.getUser()).id;
      }
 
-     getUser() {
-        //  this.accountService.getLoggedIn().subscribe(
-        //      res => {
-                this.registerService.findUserById(this.userId).subscribe(
-                    res => {
-                        this.user = res;
-                        console.log(this.user);
-                    }, error => {
-                        console.log(error);
-                    }
-                )
-        //      }, error => {
-        //          this.router.navigateByUrl('/classic/account/login');
-        //      }
-        //  )
-     }
+    //  getUser() {
+    //     //  this.accountService.getLoggedIn().subscribe(
+    //     //      res => {
+    //             this.userService.getUserById(this.userId).subscribe(
+    //                 res => {
+    //                     this.user = res;
+    //                     console.log(this.user);
+    //                 }, error => {
+    //                     console.log(error);
+    //                 }
+    //             )
+    //     //      }, error => {
+    //     //          this.router.navigateByUrl('/classic/account/login');
+    //     //      }
+    //     //  )
+    //  }
 }

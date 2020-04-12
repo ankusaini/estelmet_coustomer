@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/shared/services/user.service';
-import { AccountService } from 'src/app/shared/services/account.service';
 
 @Component({
   selector: 'app-login',
@@ -18,9 +17,12 @@ export class PageLoginComponent implements OnInit {
     private fb: FormBuilder, 
     private router: Router, 
     private userService: UserService,
-    private accountService: AccountService,
     private route : ActivatedRoute,
   ) {
+    
+  }
+
+  ngOnInit(){
     let params = this.route.snapshot.queryParams;
     if (params['redirectURL']) {
         this.redirectURL = params['redirectURL'];
@@ -34,18 +36,16 @@ export class PageLoginComponent implements OnInit {
     });
 
     ///// user login status detection
-    this.userService.isAuthenticated.subscribe(res => {
-      if (res) {
-        console.log('worked');
-        this.router.navigateByUrl(this.redirectURL);
-      } else {
-        this.errorMsg = 'Invalid Credential. Please try again latter'
-        console.log(this.errorMsg);
-      }
-    });
-  }
+    // this.userService.isAuthenticated.subscribe(res => {
+    //   if (res) {
+    //     console.log('worked');
+    //     this.router.navigateByUrl(this.redirectURL);
+    //   } else {
+    //     this.errorMsg = 'Invalid Credential. Please try again latter'
+    //     console.log(this.errorMsg);
+    //   }
+    // });
 
-  ngOnInit(){
   }
 
   submitForm() {
@@ -55,6 +55,10 @@ export class PageLoginComponent implements OnInit {
     this.userService.attemptAuth(credentials).subscribe(
       data => {
         console.log('login success');
+        // if (Object.keys(data)) {
+          // this.userService.saveUser(data);
+          this.router.navigateByUrl('dashboard/default');
+        // }
       },
       err => {
         console.log(err);

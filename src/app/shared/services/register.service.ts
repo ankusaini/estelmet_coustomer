@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
 import { ApiService } from './api.service';
-import { Observable, observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { UserDetail } from '../interfaces/user';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from './user.service';
@@ -66,7 +66,9 @@ export class RegisterService implements OnInit {
     public userDto : UserDetail = {};
     public userId: any;
     public tradArray = [];
-    public isLoggedIn : boolean;
+    public isLoggedIn : boolean = false;
+    public enterOTP : boolean = false;
+    public markAsComplete : boolean = false;
     
     public basicDetails = new FormGroup({
         userDetailId: new FormControl(""),
@@ -86,12 +88,23 @@ export class RegisterService implements OnInit {
           Validators.required, 
           Validators.email
         ]),
-        password: new FormControl("", [Validators.required]), //,CustomValidator.passwordValidation
-        cpassword: new FormControl("", [Validators.required, passwordConfirming]),
         userRole: new FormControl("", [Validators.required]),
-        otp: new FormControl("", [Validators.required]),
-        image: new FormControl("")
       });
+
+      addExtraBasicDetails() {
+          this.basicDetails.addControl("password", new FormControl("", [Validators.required]));
+          this.basicDetails.addControl("cpassword", new FormControl("", [Validators.required, passwordConfirming]));
+          this.basicDetails.addControl("otp", new FormControl("", [Validators.required]));
+          this.basicDetails.addControl("image", new FormControl(""));
+          
+      }
+
+      removeExtraBasicDetails() {
+        this.basicDetails.removeControl("password");
+        this.basicDetails.removeControl("cpassword");
+        this.basicDetails.removeControl("otp");
+        this.basicDetails.removeControl("image");
+      }
 
 
        public buisnessDetails = new FormGroup({
@@ -152,34 +165,32 @@ export class RegisterService implements OnInit {
         private userService : UserService,
         private route: ActivatedRoute
     ) {
-
-        this.userService.isAuthenticated.subscribe(
-            res => {
-                if(res) {
-                    this.isLoggedIn = res;
-                    console.log(this.isLoggedIn);
-                    this.userId = JSON.parse(this.userService.getUser()).id;
-                    if(this.userId) {
-                        this.findUserById(this.userId).subscribe(
-                            res => {
-                                this.userDto = res;
-                                this.editUser(this.userDto); 
-                            }, error => {
-                                console.log(error);
-                            }
-                        );
-                    }
-                } else {
-                    //intialize something when user is not login!
-                }
+        this.userService.isAuthenticated.subscribe(data=>{
+            if(data){
+                this.removeExtraBasicDetails();
+                this.userDto = JSON.parse(this.userService.getUser());
+                this.editUser(this.userDto);
+                this.isLoggedIn = true; 
+            } else {
+                this.addExtraBasicDetails();
+                this.userDto = undefined;
+                this.isLoggedIn = false; 
+                this.basicDetails.reset();
+                this.keyPerson.reset();
+                this.buisnessDetails.reset();
+                this.tradArray = [];
             }
-        )
-    
+        })
+        if(this.userService.isAuthenticated) {
+          
+        } else {
+            //intialize something when user is not login!
+        }
+          
      }
 
 
     ngOnInit() {
-       
     }
 
     editUser(data) {
@@ -188,25 +199,6 @@ export class RegisterService implements OnInit {
         this.buisnessDetails.patchValue(data.businessDetails[0]);
         this.tradArray = data.userProductPreference;
     }
-
-    findUserById(id) {
-        let url = '/estelmet/users/find';
-        const params: HttpParams = new HttpParams().set("userId", id);
-        return new Observable<any>(
-            obs => {
-                this.apiService.get(url, params).subscribe(
-                    res => {
-                        obs.next(res.data);
-                    }, error => {
-                         console.log(error);
-                    }
-                )
-
-            }
-        )
-    }
-
-    
 
     finalRegister() {
         let url = '/estelmet/users/createUser';

@@ -36,11 +36,24 @@ const routes: Routes = [
             },
             {
                 path: 'profile',
-                component: PageProfileComponent
+                component: PagePersonalComponent
             },
             {
                 path: 'addresses',
                 component: PageAddressesListComponent
+            },
+            {
+                path: 'editTrade',
+                component: PageTradeComponent,
+                canActivate : [UserGuardGuard] 
+            },
+            {
+                path: 'editBusiness',
+                component: PageBusinessComponent
+            },
+            {
+                path: 'editKeyperson',
+                component: PageKeypersonComponent
             },
             {
                 path: 'orders',
@@ -80,6 +93,7 @@ const routes: Routes = [
         component: SalesOfferListComponent,
         canActivate : [UserGuardGuard]
     },
+
     {
         path: '',
         component: RegisterLayoutComponent,

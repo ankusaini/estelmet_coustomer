@@ -3,6 +3,7 @@ import { StaticDataService } from 'src/app/shared/services/static-data.service';
 import { ProductType, ProductCategory, ProductShape, ProductClass } from 'src/app/shared/interfaces/product';
 import { RegisterService } from 'src/app/shared/services/register.service';
 import { ToastrService } from 'ngx-toastr';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-page-trade',
@@ -19,6 +20,7 @@ export class PageTradeComponent implements OnInit {
 
   constructor(private staticData: StaticDataService,
     private toastr: ToastrService,
+    public userService: UserService,
     public registerService: RegisterService) { }
 
   ngOnInit() {

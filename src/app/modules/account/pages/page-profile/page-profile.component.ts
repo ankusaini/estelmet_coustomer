@@ -16,6 +16,8 @@ export class PageProfileComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+      // alert("Hello");
+      this.registerService.basicDetails.removeControl("otp");
     }
 
 

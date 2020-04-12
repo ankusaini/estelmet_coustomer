@@ -12,8 +12,7 @@ import { RegisterService } from 'src/app/shared/services/register.service';
 
 export class PagePersonalComponent implements OnInit {
 
-  enterOTP : boolean = false;
-  markAsComplete : boolean = false;
+  
 
 
   constructor(
@@ -26,7 +25,7 @@ export class PagePersonalComponent implements OnInit {
   }
 
   sendOTP() {
-    this.enterOTP = true;
+    this.registerService.enterOTP = true;
     this.registerService.sendOTP(this.registerService.basicDetails.value.email, 
       this.registerService.basicDetails.value.mobile).subscribe(
       res => {
@@ -49,7 +48,7 @@ export class PagePersonalComponent implements OnInit {
         console.log(res);
         if(res.message === "Success")
           {
-        this.markAsComplete = true;
+        this.registerService.markAsComplete = true;
         this.toastr.success("OTP verified"); 
           }
         else
@@ -66,6 +65,18 @@ export class PagePersonalComponent implements OnInit {
     this.registerService.submitBasicDetails();
     
   }
+
+  updateBasicDetails() {
+    this.registerService.updateBasicDetails().subscribe(
+      res => {
+        console.log(res);
+        this.toastr.success("Profile update Sucessfully!")
+      }, error => {
+        console.log(error);
+      }
+    );
+}
+
 
   get f() {
     return this.registerService.basicDetails.controls;
