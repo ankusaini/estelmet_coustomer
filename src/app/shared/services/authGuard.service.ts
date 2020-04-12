@@ -35,7 +35,6 @@ export class AuthGuardService  implements CanActivateChild{
 
      if(this.user!=undefined){
     if(!Object.keys(this.user).length){
-
          this.router.navigateByUrl("/home");
       }
         else
