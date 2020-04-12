@@ -228,7 +228,7 @@ export class BlockQuoteComponent implements OnInit {
       this.userId = JSON.parse(this.userService.getUser()).id;
       if(this.userDto !== {}) {
       if(this.userId) {
-          this.registerService.findUserById(this.userId).subscribe(
+          this.userService.getUserById(this.userId).subscribe(
               res => {
                   this.userDto = res;
                   this.tradeArrList = this.userDto.userProductPreference;

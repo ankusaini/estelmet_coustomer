@@ -84,11 +84,7 @@ export class UserService {
 
   attemptAuth(credentials): Observable<UserDetail> {
     const route = '/estelmet/login';
-<<<<<<< HEAD
-    return this.apiService.post(route, credentials).pipe(
-=======
     return this.apiService.postLogin(route, credentials).pipe(
->>>>>>> 35d3a200d4449d45937a6128ed37642bdbb25dc6
       map(data => {
         console.log('login res', data.headers.get('authorization'));
         this.setAuth(data.headers.get('authorization'));
