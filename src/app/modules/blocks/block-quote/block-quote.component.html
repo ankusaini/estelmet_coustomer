@@ -14,18 +14,22 @@
               <div class="form-group">
                 <label>Type <small class="asterik">*</small></label>
                 <select formControlName="productType" class="form-control" [ngClass]="{'error': f.productType.errors && isSubmit }">
-                  <option value="">Select</option>
+                  <option value="" disabled>Select</option>
                   <option [value]="type.id" *ngFor="let type of productTypeList" >{{type.productType}}</option>
                 </select>
+                <small *ngIf="f.productType.value == '' && (f.productType.dirty || f.productType.touched )"
+                id="passwordHelpBlock" class="form-text text-muted">This field is required.</small>
               </div>
             </div>
             <div class="col-6 col-lg-6">
               <div class="form-group">
                 <label>Category <small class="asterik">*</small></label>
                 <select formControlName="productCategory" class="form-control" [ngClass]="{'error': f.productCategory.errors && isSubmit }">                    
-                    <option value="">Select</option>
+                    <option value="" disabled>Select</option>
                     <option [value]="category.id" *ngFor="let category of productCategoryList" >{{category.productCategory}}</option>
                   </select>
+                  <small *ngIf="f.productCategory.value == '' && (f.productCategory.dirty || f.productCategory.touched )"
+                  id="passwordHelpBlock" class="form-text text-muted">This field is required.</small>
               </div>
             </div>
           </div>
@@ -35,18 +39,22 @@
               <div class="form-group">
                 <label>Shape <small class="asterik">*</small></label>
                 <select formControlName="productShape"  class="form-control" [ngClass]="{'error': f.productShape.errors && isSubmit }">                    
-                    <option value="">Select</option>
+                    <option value="" disabled>Select</option>
                     <option [value]="shape.id" *ngFor="let shape of productShapeList" >{{shape.productShape}}</option>
                   </select>
+                  <small *ngIf="f.productShape.value == '' && (f.productShape.dirty || f.productShape.touched )"
+                  id="passwordHelpBlock" class="form-text text-muted">This field is required.</small>
               </div>
             </div>
             <div class="col-6 col-lg-6">
               <div class="form-group">
                 <label>Class <small class="asterik">*</small></label>
                 <select formControlName="productClass" class="form-control" [ngClass]="{'error': f.productClass.errors && isSubmit }">                    
-                    <option value="">Select</option>
+                    <option value="" disabled>Select</option>
                     <option [value]="class.id" *ngFor="let class of productClassList" >{{class.productClass }}</option>
                   </select>
+                  <small *ngIf="f.productClass.value == '' && (f.productClass.dirty || f.productClass.touched )"
+                  id="passwordHelpBlock" class="form-text text-muted">This field is required.</small>
               </div>
             </div>
           </div>
@@ -58,12 +66,18 @@
                   <div class="form-group">
                     <label for="profile-first-name">Thick. Min <small class="asterik">*</small></label>
                     <input type="number" formControlName="thicknessMin" class="form-control" [ngClass]="{'error': f.thicknessMin.errors && isSubmit }" placeholder="MM">
+                    <small *ngIf="f.thicknessMin.value == '' && (f.thicknessMin.dirty || f.thicknessMin.touched )"
+                      id="passwordHelpBlock" class="form-text text-muted">This field is required.</small>
                   </div>
                 </div>
                 <div class="col-6 col-lg-6">
                   <div class="form-group">
                     <label for="profile-first-name">Thick. Max</label>
                     <input type="number" formControlName="thicknessMax" [ngClass]="{'error': f.thicknessMax.errors && isSubmit }" class="form-control" placeholder="MM">
+                    <small *ngIf="f.thicknessMax.value == '' && (f.thicknessMax.dirty || f.thicknessMax.touched )"
+                    id="passwordHelpBlock" class="form-text text-muted">This field is required.</small>
+                  <small *ngIf="f.thicknessMax.value !== '' && !f.thicknessMax.valid " id="passwordHelpBlock"
+                    class="form-text text-muted">Maximum thickness should be greater than minimum thickness.</small>
                   </div>
                 </div>
               </div>
@@ -74,12 +88,18 @@
                   <div class="form-group">
                     <label for="profile-first-name">Width Min <small class="asterik">*</small></label>
                     <input type="number" formControlName="widthMin" [ngClass]="{'error': f.widthMin.errors && isSubmit }" class="form-control" placeholder="MM">
+                    <small *ngIf="f.widthMin.value == '' && (f.widthMin.dirty || f.widthMin.touched )"
+                    id="passwordHelpBlock" class="form-text text-muted">This field is required.</small>
                   </div>
                 </div>
                 <div class="col-6 col-lg-6">
                   <div class="form-group">
                     <label for="profile-first-name">Width Max</label>
                     <input type="number" formControlName="widthMax" [ngClass]="{'error': f.widthMax.errors && isSubmit }" class="form-control" placeholder="MM">
+                    <small *ngIf="f.widthMax.value == '' && (f.widthMax.dirty || f.widthMax.touched )"
+                    id="passwordHelpBlock" class="form-text text-muted">This field is required.</small>
+                    <small *ngIf="f.widthMax.value !== '' && !f.widthMax.valid " id="passwordHelpBlock"
+                    class="form-text text-muted">Maximum width should be greater than minimum width.</small>
                   </div>
                 </div>
               </div>
@@ -91,7 +111,7 @@
               <div class="row">
                 <div class="col-6 col-lg-6">
                   <div class="form-group">
-                    <label for="profile-first-name">Length Min <small class="asterik">*</small></label>
+                    <label for="profile-first-name">Length Min</label>
                     <input type="number" formControlName="lengthMin"  [ngClass]="{'error': f.lengthMin.errors && isSubmit }" class="form-control" placeholder="MM">
                   </div>
                 </div>
@@ -99,6 +119,8 @@
                   <div class="form-group">
                     <label for="profile-first-name">Length Max</label>
                     <input type="number" formControlName="lengthMax" [ngClass]="{'error': f.lengthMax.errors && isSubmit }" class="form-control" placeholder="MM">
+                    <small *ngIf="f.lengthMax.value !== '' && !f.lengthMax.valid " id="passwordHelpBlock"
+                    class="form-text text-muted">Maximum length should be greater than minimum length.</small>
                   </div>
                 </div>
               </div>
@@ -107,20 +129,24 @@
               <div class="row">
                 <div class="col-6 col-lg-6">
                   <div class="form-group">
-                    <label>Temper Min</label>
+                    <label>Temper Min <small class="asterik">*</small></label>
                     <select formControlName="temperMin" class="form-control" [ngClass]="{'error': f.temperMin.errors && isSubmit }">                    
-                        <option value="">Select <small class="asterik">*</small></option>
+                        <option value="" disabled>Select </option>
                         <option [value]="temper.id" *ngFor="let temper of productTemperList" >{{temper.productTemper}}</option>
                       </select>
+                      <small *ngIf="f.temperMin.value == '' && (f.temperMin.dirty || f.temperMin.touched )"
+                      id="passwordHelpBlock" class="form-text text-muted">This field is required.</small>
                   </div>
                 </div>
                 <div class="col-6 col-lg-6">
                   <div class="form-group">
-                    <label>Temper Max</label>
+                    <label>Temper Max<small class="asterik">*</small></label>
                     <select formControlName="temperMax" class="form-control" [ngClass]="{'error': f.temperMax.errors && isSubmit }">                    
-                        <option value="">Select</option>
+                        <option value="" disabled>Select</option>
                         <option [value]="temper.id" *ngFor="let temper of productTemperList" >{{temper.productTemper}}</option>
                       </select>
+                      <small *ngIf="f.temperMax.value == '' && (f.temperMax.dirty || f.temperMax.touched )"
+                       id="passwordHelpBlock" class="form-text text-muted">This field is required.</small>
                   </div>
                 </div>
               </div>
@@ -134,12 +160,13 @@
               <div class="form-group">
                 <label>Monthly Requirements<small class="asterik">*</small></label>
                 <input type="number" formControlName="monthlyRequirement" class="form-control" [ngClass]="{'error': f.monthlyRequirement.errors && isSubmit }" placeholder="MM">
-
+                <small *ngIf="f.monthlyRequirement.value == '' && (f.monthlyRequirement.dirty || f.monthlyRequirement.touched )"
+                id="passwordHelpBlock" class="form-text text-muted">This field is required.</small>
               </div>
             </div>
           </div>
           <!--  -->
-          <button type="submit" class="btn btn-primary btn-lg btn-block"  [disabled]="!quoteForm.valid" (click)="submitQuoteForm()">Request For Quotation</button>
+          <button type="submit" class="btn btn-primary btn-lg btn-block" (click)="submitQuoteForm()">Request For Quotation</button>
         </div>
       </div>
     </div>

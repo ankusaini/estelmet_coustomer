@@ -4,6 +4,7 @@ import { HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { FormGroup } from '@angular/forms';
 import { UserService } from './user.service';
+import { RegisterService } from './register.service';
 
 @Injectable({
     providedIn: 'root'
@@ -11,7 +12,8 @@ import { UserService } from './user.service';
 export class AccountService {
 
   constructor(private apiService: ApiService, 
-    private userService: UserService
+    private userService: UserService,
+    private registerService: RegisterService
     ) {
 
   }
@@ -59,7 +61,7 @@ export class AccountService {
     let url= '/estelmet/logout';
     this.apiService.get(url).subscribe(
         res => {
-            // this.userService.purgeAuth();
+          this.registerService.flushData();
             this.userService.logout();
         }, error => {
             console.log(error);

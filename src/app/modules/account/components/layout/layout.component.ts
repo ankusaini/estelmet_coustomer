@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { UserService } from 'src/app/shared/services/user.service';
 import { AccountService } from 'src/app/shared/services/account.service';
+import { RegisterService } from 'src/app/shared/services/register.service';
 
 @Component({
     selector: 'app-layout',
@@ -20,7 +21,12 @@ export class LayoutComponent {
         {label: 'Logout', url: '/'}
     ];
 
-    constructor(private accountService: AccountService) { }
+    constructor(private accountService: AccountService,
+        private userService: UserService, private registerService: RegisterService) { 
+        this.registerService.isLoggedIn = true;
+        this.registerService.userDto = JSON.parse(this.userService.getUser());
+        this.registerService.editUser(this.registerService.userDto);
+    }
 
     logout() {
         this.accountService.logout();

@@ -223,27 +223,18 @@ export class BlockQuoteComponent implements OnInit {
   }
 
   submitQuoteForm() {
-    if(this.isLogin) {
-      // this.toastr.success("Added successfully!");
-      this.userId = JSON.parse(this.userService.getUser()).id;
-      if(this.userDto !== {}) {
-      if(this.userId) {
-          this.registerService.findUserById(this.userId).subscribe(
-              res => {
-                  this.userDto = res;
-                  this.tradeArrList = this.userDto.userProductPreference;
-              }, error => {
-                  console.log(error);
-              }
-          );
-      }
-    }
+    if(this.isLogin && this.quoteForm.valid) {
+    this.userDto = JSON.parse(this.userService.getUser());
+    this.tradeArrList = this.userDto.userProductPreference;
     this.tradeArrList.push(this.quoteForm.value);
     this.updateProductPreference();
     
+    } else if(this.isLogin && this.quoteForm.invalid) {
+      this.toastr.error("Invalid Details!");
     } else {
-      this.toastr.error("You are not Login!");
+      // this.toastr.error("You are not Login!");
       this.router.navigateByUrl('/classic/account/login');
+      this.quoteForm.reset();
     }
     
   }
@@ -253,6 +244,7 @@ export class BlockQuoteComponent implements OnInit {
     this.apiService.put(url, this.userDto.userProductPreference).subscribe(
         res => {
           this.toastr.success("Added successfully");
+          this.quoteForm.reset();
         }, error => {
           console.log(error);
         }

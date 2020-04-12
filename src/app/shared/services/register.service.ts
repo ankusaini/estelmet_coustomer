@@ -165,12 +165,13 @@ export class RegisterService implements OnInit {
         private userService : UserService,
         private route: ActivatedRoute
     ) {
+        // console.log("hello");
         this.userService.isAuthenticated.subscribe(data=>{
             if(data){
+                this.isLoggedIn = true; 
                 this.removeExtraBasicDetails();
                 this.userDto = JSON.parse(this.userService.getUser());
                 this.editUser(this.userDto);
-                this.isLoggedIn = true; 
             } else {
                 this.addExtraBasicDetails();
                 this.userDto = undefined;
@@ -180,17 +181,14 @@ export class RegisterService implements OnInit {
                 this.buisnessDetails.reset();
                 this.tradArray = [];
             }
+            console.log(data);
         })
-        if(this.userService.isAuthenticated) {
-          
-        } else {
-            //intialize something when user is not login!
-        }
           
      }
 
 
     ngOnInit() {
+        
     }
 
     editUser(data) {
@@ -393,6 +391,19 @@ export class RegisterService implements OnInit {
                 )
             }
         )
+    }
+
+
+    flushData() {
+        this.addExtraBasicDetails();
+        this.userDto = undefined;
+        this.isLoggedIn = false; 
+        this.basicDetails.reset();
+        this.keyPerson.reset();
+        this.buisnessDetails.reset();
+        this.tradArray = [];
+        this.enterOTP = false;
+        this.markAsComplete = false;
     }
 
 

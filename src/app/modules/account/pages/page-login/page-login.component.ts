@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/shared/services/user.service';
+import { RegisterService } from 'src/app/shared/services/register.service';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,7 @@ export class PageLoginComponent implements OnInit {
     private fb: FormBuilder, 
     private router: Router, 
     private userService: UserService,
+    // private registerService: RegisterService,
     private route : ActivatedRoute,
   ) {
     

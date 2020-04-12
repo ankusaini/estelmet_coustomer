@@ -10,6 +10,7 @@ import { JwtService } from './jwt.service';
 import { ApiService } from './api.service';
 import { UserDetail } from '../interfaces/user';
 import { HttpParams } from '@angular/common/http';
+import { RegisterService } from './register.service';
 
 // import { UserService } from '../user.service';
 
@@ -67,7 +68,6 @@ export class UserService {
   logout() {
     console.log('logout');
     this.purgeAuth();
-
     this.router.navigate(['/account/login']);
     //
   }
