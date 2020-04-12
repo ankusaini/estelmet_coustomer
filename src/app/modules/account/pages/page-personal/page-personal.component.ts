@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { RegisterService } from 'src/app/shared/services/register.service';
+import { UserService } from 'src/app/shared/services/user.service';
 
 
 
@@ -12,13 +13,13 @@ import { RegisterService } from 'src/app/shared/services/register.service';
 
 export class PagePersonalComponent implements OnInit {
 
-  
-
-
   constructor(
     public registerService: RegisterService,
+    public userService: UserService,
     private toastr:ToastrService,
-  ) { }
+  ) { 
+
+  }
 
   ngOnInit() {
 
@@ -80,6 +81,17 @@ export class PagePersonalComponent implements OnInit {
 
   get f() {
     return this.registerService.basicDetails.controls;
+  }
+
+  ngAfterViewChecked(): void {
+    //Called after every check of the component's view. Applies to components only.
+    //Add 'implements AfterViewChecked' to the class.
+    this.userService.isAuthenticated.subscribe(data=>{
+      if(data){
+        this.f.userRole.disable();
+        this.f.emailId.disable();
+      }
+    })
   }
 
 

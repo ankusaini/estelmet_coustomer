@@ -4,6 +4,7 @@ import { JwtService } from './jwt.service';
 import { Observable, throwError } from 'rxjs';
 
 import { catchError } from 'rxjs/internal/operators/catchError';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +15,14 @@ export class ApiService {
   baseUrl='http://13.233.151.89:8020';
 
   constructor(private http: HttpClient,
+    private toastr: ToastrService,
     private httpBackend: HttpBackend,
     private jwtService: JwtService) { }
 
     private formatErrors(error: any) {
+      console.log(error);
       return  throwError(error.error);
+
     }
   
     get(path: string, params: HttpParams = new HttpParams()): Observable<any> {

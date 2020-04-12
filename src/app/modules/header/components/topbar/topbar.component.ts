@@ -3,7 +3,6 @@ import { CurrencyService } from '../../../../shared/services/currency.service';
 import { QuickviewService } from 'src/app/shared/services/quickview.service';
 import { Product } from 'src/app/shared/interfaces/product';
 import { UserService } from 'src/app/shared/services/user.service';
-import { JwtService } from 'src/app/shared/services/jwt.service';
 import { logWarnings } from 'protractor/built/driverProviders';
 
 @Component({
@@ -34,17 +33,9 @@ export class TopbarComponent {
     constructor(
         public currencyService: CurrencyService,
         public quickview: QuickviewService,
-        private _userService: UserService,
-        private _jwtService : JwtService
+        private userService: UserService,
     ) {
-        this.getInitialStatus();
-        this._userService.isAuthenticated.subscribe((res) => {
-            if (res) {
-                this.loginOption = false;
-            } else {
-                this.loginOption = true;
-            }
-        });
+
 
     }
 
@@ -55,12 +46,5 @@ export class TopbarComponent {
         };
     }
 
-    getInitialStatus() {
-        const token = this._jwtService.getToken();
-        if (token) {
-            this.loginOption = false;
-        } else {
-            this.loginOption = true;
-        }
-    }
+
 }

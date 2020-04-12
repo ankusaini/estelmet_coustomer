@@ -33,6 +33,9 @@ import { PageHomeTwoComponent } from './pages/page-home-two/page-home-two.compon
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service'
 import { HttpTokenInterceptorService } from './shared/services/http-token-interceptor.service';
+import { UserService } from './shared/services/user.service';
+import { RegisterService } from './shared/services/register.service';
+import { ApiService } from './shared/services/api.service';
 
 
 @NgModule({
@@ -66,6 +69,8 @@ import { HttpTokenInterceptorService } from './shared/services/http-token-interc
     ],
     providers: [
         CookieService,
+        UserService,
+        RegisterService,
         { 
             provide: LOCALE_ID, 
             useValue: 'it' 

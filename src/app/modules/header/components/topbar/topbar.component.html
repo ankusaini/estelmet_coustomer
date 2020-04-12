@@ -1,5 +1,5 @@
 <!-- .topbar -->
-<div class="site-header__topbar topbar">
+<div class="site-header__topbar topbar" >
     <div class="topbar__container container">
         <div class="topbar__row">
             <div class="topbar__item topbar__item--link">
@@ -12,16 +12,16 @@
             <div class="topbar__item topbar__item--link">
                 <a class="topbar-link" routerLink="./blog">Latest News</a>
             </div>
-            <div *ngIf="!this.loginOption" class="topbar__item topbar__item--link">
+            <div *ngIf="(userService.isAuthenticated | async)" class="topbar__item topbar__item--link">
                 <a class="topbar-link" routerLink="./account/purchaseOffer">Purchase Offer</a>
             </div>
-            <div *ngIf="!this.loginOption" class="topbar__item topbar__item--link">
+            <div *ngIf="(userService.isAuthenticated | async)" class="topbar__item topbar__item--link">
                 <a class="topbar-link" routerLink="./account/saleseOffer">Sales Offer</a>
             </div>
             <div class="topbar__spring"></div>
             <div class="topbar__item">
                 <!-- <div class="topbar-dropdown" appDropdown="topbar-dropdown--opened" #accountDropdown="appDropdown"> -->
-                    <div *ngIf="!this.loginOption" class="topbar-dropdown" appDropdown="topbar-dropdown--opened" #accountDropdown="appDropdown">
+                    <div *ngIf="(userService.isAuthenticated | async)" class="topbar-dropdown" appDropdown="topbar-dropdown--opened" #accountDropdown="appDropdown">
                     <button class="topbar-dropdown__btn" type="button" (click)="accountDropdown.toggle()">
                         My Account
                         <app-icon name="arrow-rounded-down-7x5" size="7x5"></app-icon>
@@ -38,10 +38,10 @@
                     </div>
                 </div>
             </div>
-            <div *ngIf="this.loginOption" class="topbar__item topbar__item--link">
+            <div *ngIf="!(userService.isAuthenticated | async)" class="topbar__item topbar__item--link">
                 <a class="topbar-link" routerLink="./account/login">Login</a>
             </div>
-            <div *ngIf="this.loginOption"  class="topbar__item topbar__item--link">
+            <div *ngIf="!(userService.isAuthenticated | async)"  class="topbar__item topbar__item--link">
                 <a class="topbar-link" appClick routerLink="./account/personal">Register</a>
             </div>
             <!-- <div class="topbar__item">

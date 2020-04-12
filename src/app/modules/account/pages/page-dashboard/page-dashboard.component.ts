@@ -16,15 +16,13 @@ import { UserService } from 'src/app/shared/services/user.service';
 })
 export class PageDashboardComponent implements OnInit {
     // address: Address = addresses[0];
-    orders: Order[] = orders.slice(0, 3);
+    // orders: Order[] = orders.slice(0, 3);
 
     public user: UserDetail = {};
     public userId: any;
 
     constructor(private registerService: RegisterService,
-        private accountService: AccountService,
         private userService: UserService,
-        private router: Router
         ) {
      }
 

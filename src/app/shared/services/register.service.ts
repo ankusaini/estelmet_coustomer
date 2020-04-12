@@ -368,7 +368,7 @@ export class RegisterService implements OnInit {
     }
 
     updateKeyPersonDetails() {
-        let url = '/estelmet/users/saveKeyPerson';
+        let url = '/estelmet/users/updateKeyPerson';
         return new Observable<any>(
             obs => {
                 this.apiService.put(url, this.userDto.keyPerson).subscribe(
@@ -381,7 +381,7 @@ export class RegisterService implements OnInit {
     }
 
     updateTradeDetails() {
-        let url = '/estelmet/users/saveUserProductPreference';
+        let url = '/estelmet/users/updateUserProductPreference';
         return new Observable<any>(
             obs => {
                 this.apiService.put(url, this.userDto.userProductPreference).subscribe(

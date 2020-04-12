@@ -32,25 +32,27 @@
     <div class="row">
       <div class="col-12 col-lg-3 col-xl-3">
         <div class="form-group">
-          <label>Country <small class="asterik">*</small></label>
-          <!-- <select class="form-control">
-            <option>Select</option>
-          </select> -->
-          <input formControlName="country" type="text" class="form-control" id="profile-first-name" placeholder="Address Line 2">
-          <small *ngIf="f.country.value === '' && (f.country.dirty || f.country.touched )" id="passwordHelpBlock" class="form-text text-muted"
-        >This field is required.</small>
+          <label>Country <small class="asterik_sign">*</small></label>
+        <select formControlName="country" class="form-control" #country
+          (change)="getAllState(country.value)">
+          <option value="India" disabled>Select Country</option>
+          <option *ngFor="let item of countryList" [value]="item.id"> {{ item?.name }}</option>
+        </select>
+        <small *ngIf="f.country.value == '' && (f.country.dirty || f.country.touched )" id="passwordHelpBlock"
+          class="form-text text-muted">This field is required.</small>
         </div>
       </div>
       <div class="col-12 col-lg-1 col-xl-1"></div>
       <div class="col-12 col-lg-3 col-xl-3">
         <div class="form-group">
-          <label>State <small class="asterik">*</small></label>
-          <!-- <select class="form-control">
-            <option>Select</option>
-          </select> -->
-          <input formControlName="state" type="text" class="form-control" id="profile-first-name" placeholder="Address Line 2">
-          <small *ngIf="f.state.value === '' && (f.state.dirty || f.state.touched )" id="passwordHelpBlock" class="form-text text-muted"
-        >This field is required.</small>
+          <label>State <small class="asterik_sign">*</small></label>
+        <select formControlName="state" class="form-control" #state
+          (change)="getAllCity(state.value)">
+          <option value="" disabled>Select State</option>
+          <option *ngFor="let item of stateList" [value]="item.id"> {{ item?.name }}</option>
+        </select>
+        <small *ngIf="f.state.value == '' && (f.state.dirty || f.state.touched )" id="passwordHelpBlock"
+          class="form-text text-muted">This field is required.</small>
         </div>
       </div>
     </div>
@@ -58,10 +60,10 @@
       <div class="col-12 col-lg-3 col-xl-3">
         <div class="form-group">
           <label>City <small class="asterik">*</small></label>
-          <!-- <select class="form-control">
-            <option>Select</option>
-          </select> -->
-          <input formControlName="city" type="text" class="form-control" id="profile-first-name" placeholder="Address Line 2">
+          <select formControlName="city" class="form-control" >
+            <option value="" disabled>Select City</option>
+            <option *ngFor="let item of cityList" [value]="item.id"> {{ item?.name }}</option>
+          </select>
           <small *ngIf="f.city.value === '' && (f.city.dirty || f.city.touched )" id="passwordHelpBlock" class="form-text text-muted"
         >This field is required.</small>
         </div>

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/shared/services/user.service';
 import { RegisterService } from 'src/app/shared/services/register.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +19,7 @@ export class PageLoginComponent implements OnInit {
     private fb: FormBuilder, 
     private router: Router, 
     private userService: UserService,
+    private toastr: ToastrService,
     // private registerService: RegisterService,
     private route : ActivatedRoute,
   ) {
@@ -64,7 +66,6 @@ export class PageLoginComponent implements OnInit {
       },
       err => {
         console.log(err);
-
         if (err.status === 401) {
           // this.router.navigateByUrl('guest/signup');
           // this.toastr.errorToastr('Invalid email and password');

@@ -34,6 +34,7 @@
     "@nguniversal/module-map-ngfactory-loader": "8.1.1",
     "bootstrap": "^4.3.1",
     "core-js": "^2.6.10",
+    "country-state-city": "^1.0.4",
     "express": "^4.17.1",
     "intl-tel-input": "^16.0.8",
     "ng5-slider": "^1.2.4",
